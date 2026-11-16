@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ITIL 4 Foundation Trainer</title>
+<style>
+:root{--bg:#0d0f14;--surface:#161920;--surface2:#1e2230;--border:#2a2f3f;--accent:#00d4ff;--accent2:#ff6b35;--green:#00e676;--red:#ff3d5a;--yellow:#ffd600;--text:#e8eaf0;--dim:#7b829a;--r:12px}
+body.light{--bg:#f1f3f8;--surface:#ffffff;--surface2:#e8ecf4;--border:#cdd3e0;--accent:#0083a8;--accent2:#d9480f;--green:#0a8f4a;--red:#d62839;--yellow:#a67c00;--text:#1b2030;--dim:#5b6479}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;padding-bottom:40px;transition:background .25s,color .25s}
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:13px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.header-title{font-family:monospace;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:2px}
+.hbtn{background:var(--surface2);border:1px solid var(--border);border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px}
+.hbtn:active{opacity:.7}
+.wrap{max-width:600px;margin:0 auto;padding:0 14px}
+.screen{display:none}.screen.active{display:block}
+.hero{text-align:center;padding:28px 0 20px}
+.badge{display:inline-block;font-size:11px;letter-spacing:2px;color:var(--accent);background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.25);border-radius:20px;padding:4px 14px;margin-bottom:16px;font-family:monospace}
+.hero h1{font-size:26px;font-weight:700;margin-bottom:8px}
+.hero p{color:var(--dim);font-size:14px;margin-bottom:24px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.card-label{font-family:monospace;font-size:10px;color:var(--dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.bar-wrap{background:var(--surface2);border-radius:100px;height:10px;margin-bottom:10px;overflow:hidden}
+.bar-fill{height:100%;border-radius:100px;transition:width .8s cubic-bezier(.16,1,.3,1);background:linear-gradient(90deg,var(--accent2),var(--accent))}
+.readiness-row{display:flex;justify-content:space-between;align-items:center}
+.rpct{font-family:monospace;font-size:24px;font-weight:700;color:var(--accent)}
+.rstatus{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
+.s-red{background:rgba(255,61,90,.15);color:var(--red)}.s-yellow{background:rgba(255,214,0,.15);color:var(--yellow)}.s-green{background:rgba(0,230,118,.15);color:var(--green)}
+.stats3{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+.sbox{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:10px 4px;text-align:center}
+.snum{font-family:monospace;font-size:19px;font-weight:700;margin-bottom:2px}
+.slbl{font-size:10px;color:var(--dim)}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.mbtn{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 12px;cursor:pointer;text-align:left;color:var(--text)}
+.mbtn:active{opacity:.8}
+.mbtn.featured{border-color:rgba(0,212,255,.4);background:rgba(0,212,255,.04)}
+.mbtn .micon{font-size:22px;display:block;margin-bottom:6px}
+.mbtn .mname{font-weight:700;font-size:14px;margin-bottom:3px}
+.mbtn .mdesc{font-size:11px;color:var(--dim)}
+.exam-info{background:linear-gradient(135deg,rgba(255,107,53,.1),rgba(0,212,255,.1));border:1px solid rgba(255,107,53,.3);border-radius:var(--r);padding:14px;margin-bottom:14px}
+.exam-info h3{font-size:14px;font-weight:700;margin-bottom:8px;color:var(--accent2)}
+.exam-info ul{font-size:13px;padding-left:16px;line-height:1.8}
+.catlist{flex-direction:column;gap:8px;margin-bottom:14px;display:none}
+.catbtn{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;cursor:pointer;text-align:left;font-size:13px;color:var(--text);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.catbtn .ccount{font-family:monospace;font-size:11px;color:var(--dim);white-space:nowrap}
+.minibar{background:var(--surface2);border-radius:100px;height:5px;margin-top:6px;overflow:hidden}
+.minibar>div{height:100%;border-radius:100px}
+.sync-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.sync-card h3{font-size:13px;font-weight:700;color:var(--dim);margin-bottom:12px;letter-spacing:1px;text-transform:uppercase;font-family:monospace}
+.sync-row{display:flex;gap:8px}
+.sbtn{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:11px 8px;cursor:pointer;text-align:center;font-size:13px;color:var(--text);font-weight:600}
+.sbtn.primary{background:rgba(0,212,255,.12);border-color:rgba(0,212,255,.4);color:var(--accent)}
+.btn-full{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:13px;font-size:14px;color:var(--dim);cursor:pointer;margin-bottom:10px}
+.import-area{display:none;padding:12px 0}
+.import-area textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;font-family:monospace;font-size:12px;color:var(--text);resize:none;height:80px;margin-bottom:8px}
+.qheader{padding-top:16px;margin-bottom:16px}
+.prog-track{background:var(--surface2);border-radius:100px;height:6px;margin-bottom:10px}
+.prog-fill{background:linear-gradient(90deg,var(--accent2),var(--accent));height:100%;border-radius:100px;transition:width .4s}
+.qmeta{display:flex;justify-content:space-between;align-items:center;font-family:monospace;font-size:12px;color:var(--dim)}
+.timer-wrap{display:none}
+.timer-wrap.exam{display:flex;align-items:center;gap:6px;font-family:monospace;font-size:13px;color:var(--yellow);margin-top:6px}
+.timer-wrap.exam.urgent{color:var(--red)}
+.qcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:14px;position:relative}
+.qcat{font-family:monospace;font-size:10px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;padding-right:34px}
+.qtext{font-size:16px;line-height:1.55}
+.star{position:absolute;top:10px;right:10px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--yellow)}
+.answers{display:flex;flex-direction:column;gap:9px;margin-bottom:16px}
+.abtn{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;text-align:left;font-size:14px;line-height:1.4;color:var(--text);display:flex;align-items:flex-start;gap:11px}
+.abtn:active:not(:disabled){opacity:.8}.abtn:disabled{cursor:default}
+.aletter{font-family:monospace;font-size:12px;color:var(--dim);min-width:18px;margin-top:1px;font-weight:700}
+.abtn.sel{border-color:var(--accent);background:rgba(0,212,255,.12)}.abtn.sel .aletter{color:var(--accent)}
+.exnav{display:none}.exrow{display:flex;gap:8px;margin-bottom:8px}
+.exrow button{flex:1;padding:13px 6px;border-radius:var(--r);border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-weight:600;cursor:pointer}
+.exrow button:disabled{opacity:.35}.exrow .go{background:linear-gradient(135deg,var(--accent2),var(--accent));border:none;color:#fff}
+.gridbox{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}
+.gcell{position:relative;padding:14px 0;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--dim);font-family:monospace;font-size:14px;font-weight:700;cursor:pointer}
+.gcell.done{border-color:var(--accent);background:rgba(0,212,255,.12);color:var(--text)}
+.gcell.flag{border-color:var(--yellow)}.gcell i{position:absolute;top:-6px;right:-3px;font-size:11px;font-style:normal}
+.abtn.correct{border-color:var(--green);background:rgba(0,230,118,.09)}.abtn.correct .aletter{color:var(--green)}
+.abtn.wrong{border-color:var(--red);background:rgba(255,61,90,.09)}.abtn.wrong .aletter{color:var(--red)}
+.expbox{background:var(--surface2);border-left:3px solid var(--accent);border-radius:0 var(--r) var(--r) 0;padding:13px 15px;font-size:13px;line-height:1.55;color:var(--dim);margin-bottom:14px;display:none}
+.expbox.show{display:block}
+.expbox strong{color:var(--text)}
+details.dg{margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 10px}
+details.dg summary{cursor:pointer;font-size:12px;color:var(--accent);font-weight:600}
+details.dg svg{margin-top:8px;display:block}
+.nbtn{width:100%;background:linear-gradient(135deg,var(--accent2),var(--accent));border:none;border-radius:var(--r);padding:15px;font-size:15px;font-weight:700;color:#fff;cursor:pointer;display:none}
+.nbtn.show{display:block}
+.exam-skip{width:100%;background:transparent;border:1px solid var(--border);border-radius:var(--r);padding:11px;font-size:13px;color:var(--dim);cursor:pointer;margin-top:8px}
+.result-wrap{text-align:center;padding:28px 0}
+.rcircle{width:130px;height:130px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 20px;border:3px solid var(--accent);background:rgba(0,212,255,.05)}
+.rpct2{font-family:monospace;font-size:34px;font-weight:700;color:var(--accent);line-height:1}
+.rlbl{font-size:11px;color:var(--dim);margin-top:3px}
+.rverdict{font-size:20px;font-weight:700;margin-bottom:6px}
+.rsub{font-size:13px;color:var(--dim);margin-bottom:22px;line-height:1.5}
+.rbreakdown{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px;text-align:left}
+.rbox{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:13px}
+.rnum{font-family:monospace;font-size:24px;font-weight:700;margin-bottom:2px}
+.rlabel{font-size:12px;color:var(--dim)}
+.actions{display:flex;flex-direction:column;gap:9px}
+.btn-prim{width:100%;background:linear-gradient(135deg,var(--accent2),var(--accent));border:none;border-radius:var(--r);padding:15px;font-size:15px;font-weight:700;color:#fff;cursor:pointer}
+.btn-sec{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:13px;font-size:14px;color:var(--text);cursor:pointer}
+.cat-breakdown{text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:14px}
+.cat-breakdown h4{font-size:12px;color:var(--dim);font-family:monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.cbrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)}
+.cbrow:last-child{border-bottom:none}
+.cbname{font-size:13px}.cbscore{font-family:monospace;font-size:13px;font-weight:700}
+.hist{display:flex;gap:6px;align-items:flex-end;height:90px}
+.hbar{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;font-size:10px;color:var(--dim);font-family:monospace}
+.hbar>div{width:100%;border-radius:4px 4px 0 0;min-height:2px}
+.rv{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px;text-align:left}
+.rv-q{font-size:14px;line-height:1.5;margin-bottom:8px}
+.rv-no{font-size:13px;color:var(--red);margin-bottom:4px}.rv-ok{font-size:13px;color:var(--green)}
+.cardface{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:14px;min-height:150px;position:relative;cursor:pointer}
+.cback{display:none;margin-bottom:14px;background:var(--surface2);border-left:3px solid var(--green);border-radius:0 var(--r) var(--r) 0;padding:14px;font-size:13px;line-height:1.55;color:var(--dim)}
+.cback strong{color:var(--text)}.cans{color:var(--green);font-size:15px;font-weight:700;margin-bottom:8px;line-height:1.4}
+.ctap{text-align:center;color:var(--dim);font-size:12px;margin-bottom:14px}
+.cbtns{display:none;gap:10px}
+.cbtns button{flex:1;padding:14px;border-radius:var(--r);border:1px solid var(--border);font-size:14px;font-weight:700;cursor:pointer;color:#fff}
+.hb-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.hb-tab{padding:7px 13px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--dim);font-size:12px;cursor:pointer}
+.hb-tab.active{background:rgba(0,212,255,.15);border-color:rgba(0,212,255,.5);color:var(--accent)}
+.hb-tab.weak{border-color:rgba(255,214,0,.4);color:var(--yellow)}
+.hb-ctrl{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:14px}
+.hb-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.hb-btn{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 14px;color:var(--text);font-size:13px;cursor:pointer}
+.hb-btn.play{background:linear-gradient(135deg,var(--accent2),var(--accent));border:none;color:#fff;font-weight:700}
+.hb-sel{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:7px 8px;font-size:12px;color:var(--text)}
+.hb-pw{background:var(--surface2);border-radius:100px;height:4px;margin:10px 0;overflow:hidden}
+.hb-pf{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--accent2),var(--accent));transition:width .3s}
+.hb-now{font-size:12px;color:var(--accent);min-height:16px;margin-top:4px}
+.hb-tune{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap}
+.hb-ti{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--dim)}
+.hb-ti input[type=range]{width:70px;accent-color:var(--accent)}
+.hb-vrow{display:flex;align-items:center;gap:8px;margin-top:8px}
+.hb-vlbl{font-size:11px;color:var(--dim)}
+.hb-cnt{font-size:12px;color:var(--dim);margin-left:auto;font-family:monospace}
+.hb-entry{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.hb-entry.cur{border-color:var(--accent)}
+.hb-emeta{font-family:monospace;font-size:10px;color:var(--dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.hb-etitle{font-size:14px;font-weight:700;margin-bottom:4px;cursor:pointer}
+.hb-ebody{font-size:12px;color:var(--dim);line-height:1.6}
+.hb-one{margin-top:10px;background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.3);border-radius:8px;padding:6px 14px;font-size:12px;color:var(--accent);cursor:pointer}
+.hb-wbadge{display:inline-block;font-size:10px;background:rgba(255,214,0,.12);color:var(--yellow);border:1px solid rgba(255,214,0,.3);border-radius:4px;padding:1px 6px;margin-left:6px}
+.hb-hint{margin-top:10px;padding:8px 10px;background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.2);border-radius:8px;font-size:12px;color:var(--accent)}
+.hb-hint-btn{margin-left:8px;background:rgba(0,212,255,.15);border:1px solid rgba(0,212,255,.4);border-radius:6px;padding:3px 9px;font-size:11px;color:var(--accent);cursor:pointer}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--surface2);border:1px solid var(--border);border-radius:100px;padding:9px 20px;font-size:13px;transition:transform .3s;z-index:500;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:400;display:none}
+.pagehead{padding-top:16px;margin-bottom:14px}
+.pagehead small{font-family:monospace;font-size:11px;color:var(--dim);letter-spacing:2px;text-transform:uppercase}
+.pagehead div{font-size:20px;font-weight:700;margin-top:4px}
+</style>
+</head>
+<body>
+<div class="header">
+  <span class="header-title">ITIL 4 · TRAINER</span>
+  <div style="display:flex;gap:8px">
+    <div class="hbtn" id="themeBtn" title="Hell/Dunkel">☀️</div>
+    <div class="hbtn" id="hoerbuchBtn" title="Hörbuch">🎧</div>
+    <div class="hbtn" id="syncBtn" title="Sync">🔄</div>
+    <div class="hbtn" id="homeBtn" title="Home">🏠</div>
+  </div>
+</div>
+
+<!-- HOME -->
+<div class="screen active" id="homeScreen"><div class="wrap">
+  <div class="hero">
+    <div class="badge">ITIL® 4 Foundation · Deutsch</div>
+    <h1>Prüfungs-Trainer</h1>
+    <p><span class="nQ">185</span> Fragen · Prüfungsmodus · Karteikarten · Merkbilder</p>
+  </div>
+  <div class="card">
+    <div class="card-label">Prüfungsbereitschaft</div>
+    <div class="bar-wrap"><div class="bar-fill" id="readBar" style="width:0%"></div></div>
+    <div class="readiness-row"><span class="rpct" id="readPct">–</span><span class="rstatus s-red" id="readStatus">Noch keine Daten</span></div>
+  </div>
+  <div class="stats3">
+    <div class="sbox"><div class="snum" id="stTotal">0</div><div class="slbl">beantwortet</div></div>
+    <div class="sbox"><div class="snum" style="color:var(--green)" id="stRight">0</div><div class="slbl">richtig</div></div>
+    <div class="sbox"><div class="snum" style="color:var(--red)" id="stWrong">0</div><div class="slbl">falsch</div></div>
+    <div class="sbox"><div class="snum" style="color:var(--accent2)" id="stStreak">0</div><div class="slbl">🔥 Tage</div></div>
+    <div class="sbox"><div class="snum" style="color:var(--yellow)" id="stBest">–</div><div class="slbl">Bestwert</div></div>
+  </div>
+  <div class="exam-info"><h3>🎯 Echte Prüfung</h3><ul><li>40 Fragen aus dem Gesamtpool</li><li>60 Minuten Bearbeitungszeit</li><li>65 % zum Bestehen (26 von 40)</li><li>Auswertung erst nach Abgabe – blättern &amp; markieren erlaubt</li></ul></div>
+  <div class="modes">
+    <button class="mbtn featured" onclick="startMode('exam')"><span class="micon">🎓</span><div class="mname">Prüfungssimulation</div><div class="mdesc">40 Fragen · 60 Min</div></button>
+    <button class="mbtn" onclick="startMode('cards')"><span class="micon">🃏</span><div class="mname">Karteikarten</div><div class="mdesc">Aufdecken &amp; bewerten</div></button>
+    <button class="mbtn" onclick="startMode('all')"><span class="micon">📋</span><div class="mname">Alle Fragen</div><div class="mdesc"><span class="nQ">185</span> · mit Erklärung</div></button>
+    <button class="mbtn" onclick="startMode('quick')"><span class="micon">⚡</span><div class="mname">Quick-Test</div><div class="mdesc">10 Zufallsfragen</div></button>
+    <button class="mbtn" onclick="startMode('wrong')"><span class="micon">🎯</span><div class="mname">Schwächen</div><div class="mdesc" id="wrongCount">0 offen</div></button>
+    <button class="mbtn" onclick="startMode('marked')"><span class="micon">⭐</span><div class="mname">Gemerkte</div><div class="mdesc" id="markCount">0 gemerkt</div></button>
+  </div>
+  <div class="modes">
+    <button class="mbtn" onclick="openGallery()"><span class="micon">🖼</span><div class="mname">Merkbilder</div><div class="mdesc">Alle Schaubilder</div></button>
+    <button class="mbtn" onclick="hbOpen()"><span class="micon">🎧</span><div class="mname">Hörbuch</div><div class="mdesc">Lernstoff anhören</div></button>
+  </div>
+  <div class="mbtn" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px" onclick="toggleCats()">
+    <div><span style="font-size:20px;margin-right:8px">📚</span><strong>Themenbereich</strong><div class="mdesc">Nach Kategorie üben · mit Fortschritt</div></div>
+    <span id="catArrow" style="color:var(--dim);font-size:18px">▸</span>
+  </div>
+  <div class="catlist" id="catList"></div>
+  <div class="sync-card">
+    <h3>🔄 Fortschritt synchronisieren</h3>
+    <div class="sync-row"><button class="sbtn primary" onclick="exportProgress()">📤 Exportieren</button><button class="sbtn" onclick="toggleImport()">📥 Importieren</button></div>
+    <div class="import-area" id="importArea"><textarea id="importText" placeholder="Exportierten Code hier einfügen..."></textarea><button class="sbtn primary" style="width:100%" onclick="importProgress()">✓ Fortschritt laden</button></div>
+  </div>
+  <button class="btn-full" onclick="if(confirm('Statistik wirklich zurücksetzen?')){resetStats()}">🗑 Statistik zurücksetzen</button>
+</div></div>
+
+<!-- QUIZ -->
+<div class="screen" id="quizScreen"><div class="wrap">
+  <div class="qheader">
+    <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="qmeta"><span id="qCounter">Frage 1</span><span id="qScore">✓ 0</span></div>
+    <div class="timer-wrap" id="timerWrap">⏱ <span id="timerDisplay">60:00</span></div>
+  </div>
+  <div class="qcard"><button class="star" id="starBtn" onclick="toggleStar()">☆</button><div class="qcat" id="qCat"></div><div class="qtext" id="qText"></div></div>
+  <div class="answers" id="answers"></div>
+  <div class="expbox" id="expBox"></div>
+  <button class="nbtn" id="nBtn" onclick="nextQ()">Nächste Frage →</button>
+  <button class="exam-skip" id="skipBtn" onclick="skipQ()" style="display:none">Überspringen →</button>
+  <div class="exnav" id="examNav">
+    <div class="exrow"><button id="prevBtn" onclick="examGo(-1)">← Zurück</button><button id="flagBtn" onclick="examFlagToggle()">🏳 Markieren</button><button id="nextExBtn" class="go" onclick="examGo(1)">Weiter →</button></div>
+    <div class="exrow"><button onclick="examGrid()">▦ Übersicht</button><button onclick="examFinishAsk()" style="border-color:var(--red);color:var(--red)">Abgeben</button></div>
+  </div>
+</div></div>
+
+<!-- PRÜFUNGSÜBERSICHT -->
+<div class="screen" id="gridScreen"><div class="wrap">
+  <div class="pagehead"><small>Prüfungsübersicht · ⏱ <span id="gridTimer"></span></small><div id="gridInfo"></div></div>
+  <div class="gridbox" id="gridBox"></div>
+  <div class="actions"><button class="btn-sec" onclick="showScreen('quizScreen')">← Zurück zur Prüfung</button><button class="btn-prim" onclick="examFinishAsk()">Prüfung abgeben</button></div>
+</div></div>
+
+<!-- KARTEIKARTEN -->
+<div class="screen" id="cardScreen"><div class="wrap">
+  <div class="qheader"><div class="prog-track"><div class="prog-fill" id="cProg" style="width:0%"></div></div><div class="qmeta"><span id="cCounter">Karte 1</span></div></div>
+  <div class="cardface" onclick="flipCard()"><button class="star" id="cStar" onclick="event.stopPropagation();cardStar()">☆</button><div class="qcat" id="cCat"></div><div class="qtext" id="cText"></div></div>
+  <div class="ctap" id="cTap">👆 Tippe die Karte, um die Antwort zu sehen</div>
+  <div class="cback" id="cBack"></div>
+  <div class="cbtns" id="cBtns"><button style="background:var(--red)" onclick="cardRate(false)">✗ Nochmal</button><button style="background:var(--green)" onclick="cardRate(true)">✓ Gewusst</button></div>
+</div></div>
+
+<!-- RESULT -->
+<div class="screen" id="resultScreen"><div class="wrap"><div class="result-wrap">
+  <div class="rcircle" id="rCircle"><div class="rpct2" id="rPct">0%</div><div class="rlbl">Richtig</div></div>
+  <div class="rverdict" id="rVerdict"></div><div class="rsub" id="rSub"></div>
+  <div class="rbreakdown">
+    <div class="rbox"><div class="rnum" style="color:var(--green)" id="rRight">0</div><div class="rlabel">Richtig</div></div>
+    <div class="rbox"><div class="rnum" style="color:var(--red)" id="rWrong">0</div><div class="rlabel">Falsch / offen</div></div>
+    <div class="rbox"><div class="rnum" id="rTotal">0</div><div class="rlabel">Fragen</div></div>
+    <div class="rbox"><div class="rnum" id="rTime">–</div><div class="rlabel">Zeit</div></div>
+  </div>
+  <div class="cat-breakdown" id="catBreakdown"></div>
+  <div class="cat-breakdown" id="histBox" style="display:none"></div>
+  <div class="actions">
+    <button class="btn-sec" id="reviewBtn" onclick="openReview()" style="display:none">🔍 Fehler ansehen</button>
+    <button class="btn-prim" onclick="restartMode()">🔄 Nochmal</button>
+    <button class="btn-sec" onclick="showScreen('homeScreen')">← Zur Übersicht</button>
+  </div>
+</div></div></div>
+
+<!-- REVIEW -->
+<div class="screen" id="reviewScreen"><div class="wrap">
+  <div class="pagehead"><small>Fehler-Review</small><div id="revCount"></div></div>
+  <div id="revList"></div>
+  <div class="actions" style="margin-top:6px"><button class="btn-sec" onclick="showScreen('resultScreen')">← Zurück zum Ergebnis</button></div>
+</div></div>
+
+<!-- MERKBILDER -->
+<div class="screen" id="galleryScreen"><div class="wrap">
+  <div class="pagehead"><small>Merkbilder</small><div>Schaubilder zum Lernstoff</div></div>
+  <div id="galList"></div>
+</div></div>
+
+<!-- HÖRBUCH -->
+<div class="screen" id="hoerbuchScreen"><div class="wrap">
+  <div class="pagehead"><small>Hörbuch</small><div>ITIL 4 · Lernstoff anhören</div></div>
+  <div class="hb-tabs" id="hbTabs"></div>
+  <div class="hb-ctrl">
+    <div class="hb-row">
+      <button class="hb-btn" onclick="hbPrev()">⏮</button>
+      <button class="hb-btn play" id="hbPlayBtn" onclick="hbToggle()">▶ Abspielen</button>
+      <button class="hb-btn" onclick="hbNext()">⏭</button>
+      <select class="hb-sel" id="hbSpeed" onchange="hbRestart()"><option value="0.85">0.85×</option><option value="0.9">0.9×</option><option value="0.95" selected>0.95×</option><option value="1">1×</option><option value="1.1">1.1×</option></select>
+      <span class="hb-cnt" id="hbCnt">– / –</span>
+    </div>
+    <div class="hb-vrow"><span class="hb-vlbl">Stimme:</span><select class="hb-sel" id="hbVoice" onchange="hbRestart()" style="flex:1;max-width:220px"></select></div>
+    <div class="hb-tune">
+      <div class="hb-ti">Tonhöhe <input type="range" id="hbPitch" min="0.8" max="1.3" step="0.05" value="1.05" oninput="$('hbPV').textContent=parseFloat(this.value).toFixed(2)"> <span id="hbPV">1.05</span></div>
+      <div class="hb-ti">Lautst. <input type="range" id="hbVol" min="0.5" max="1" step="0.05" value="1" oninput="$('hbVL').textContent=parseFloat(this.value).toFixed(2)"> <span id="hbVL">1.00</span></div>
+    </div>
+    <div class="hb-pw"><div class="hb-pf" id="hbPf" style="width:0%"></div></div>
+    <div class="hb-now" id="hbNow">Kapitel wählen, dann Abspielen tippen</div>
+  </div>
+  <div id="hbEntries"></div>
+</div></div>
+
+<canvas id="confetti"></canvas>
+<div class="toast" id="toast"></div>
+<script>
+/* Fragen: Q(Kategorie, Frage, [Optionen], richtigerIndex, "Titel|Erklärung")
+   Präfixe: S: = Szenario – | M: = Musterprüfung – | W: = Schwerpunkt – | L: = PeopleCert-Stil – */
+const CATP = {'S:':'Szenario – ','M:':'Musterprüfung – ','W:':'Schwerpunkt – ','L:':'PeopleCert-Stil – '};
+const P = 'Practices – Service Management';
+const questions = [];
+function Q(cat, text, opts, ans, exp) {
+  for (const k in CATP) if (cat.startsWith(k)) cat = CATP[k] + cat.slice(2);
+  const i = exp.indexOf('|');
+  questions.push({ id: questions.length + 1, cat, text, opts, ans,
+    exp: '<strong>' + exp.slice(0, i) + '</strong>: ' + exp.slice(i + 1) });
+}
+const GP = ['Fokus auf den Mehrwert','Dort beginnen, wo man steht','Iterative Weiterentwicklung mit Feedback','Zusammenarbeiten und Transparenz fördern','Ganzheitlich denken und arbeiten','Auf Einfachheit und Praktikabilität achten','Optimieren und automatisieren'];
+
+// ---- 1-8 Grundprinzipien
+Q('Grundprinzipien','Welches Grundprinzip empfiehlt, den aktuellen Status zu bewerten und zu entscheiden, was wiederverwendet werden kann?',[GP[0],GP[1],GP[2],GP[4]],1,'Dort beginnen, wo man steht|Den Ist-Zustand analysieren, bevor man etwas Neues aufbaut. Vorhandene Prozesse, Tools und Fähigkeiten werden bewertet und wiederverwendet.');
+Q('Grundprinzipien','Welches Grundprinzip besagt, dass es wichtig ist, etwas zu tun, anstatt viel Zeit auf die Analyse unterschiedlicher Optionen zu verwenden?',[GP[2],GP[5],GP[0],GP[6]],0,'Iterative Weiterentwicklung mit Feedback|In kleinen Schritten handeln, Feedback einholen und anpassen – statt auf den perfekten Plan zu warten.');
+Q('Grundprinzipien','Welches Grundprinzip betont, wie wichtig es ist, den Ablauf von Work in Progress zu verstehen, Engpässe zu identifizieren und Verschwendung aufzudecken?',[GP[0],GP[3],GP[4],GP[6]],1,'Zusammenarbeiten und Transparenz fördern|Transparenz über den Arbeitsfluss (WIP, Engpässe, Verschwendung) ist Kern dieses Prinzips.');
+Q('Grundprinzipien','Welches Grundprinzip beschäftigt sich HAUPTSÄCHLICH mit dem Umsatz und dem Wachstum des Konsumenten?',[GP[5],GP[1],GP[0],GP[3]],2,'Fokus auf den Mehrwert|Alles, was die Organisation tut, muss direkt oder indirekt zur Wertschöpfung für Stakeholder beitragen.');
+Q('Grundprinzipien','Welches Grundprinzip empfiehlt, aktuelle Messgrößen zu überprüfen, bevor neue Messgrößen entwickelt werden?',[GP[2],GP[0],GP[1],GP[4]],2,'Dort beginnen, wo man steht|Bevor neue KPIs definiert werden, sollen vorhandene geprüft werden.');
+Q('Grundprinzipien','Was beschreibt das Prinzip „Iterative Weiterentwicklung mit Feedback“ am besten?',['Große Lösungen auf einmal liefern','In kleinen Schritten vorgehen und regelmäßig Rückmeldungen einbeziehen','Alle Stakeholder vor jeder Aktion befragen','Nur auf Kundenfeedback reagieren'],1,'Iterative Weiterentwicklung|Arbeit in kleine Einheiten aufteilen, liefern, Feedback einbeziehen. Das reduziert Risiko und ermöglicht schnelle Kurskorrektur.');
+Q('Grundprinzipien','Welches Grundprinzip fordert, Silos zu durchbrechen und alle relevanten Beteiligten einzubeziehen?',[GP[5],GP[6],GP[3],GP[0]],2,'Zusammenarbeiten und Transparenz fördern|Transparenz, Wissensteilung und die richtigen Personen zum richtigen Zeitpunkt einbeziehen.');
+Q('Grundprinzipien','Was ist der korrekte erste Schritt bei „Optimieren und automatisieren“?',['Sofort automatisieren, um Zeit zu sparen','Zuerst optimieren, dann automatisieren','Automatisierung und Optimierung gleichzeitig starten','Nur automatisieren, wenn der Prozess 100 % stabil ist'],1,'Optimieren und automatisieren|Erst den Prozess optimieren (Verschwendung entfernen), dann automatisieren. Einen schlechten Prozess zu automatisieren erzeugt nur schneller schlechte Ergebnisse.');
+
+// ---- 9-25 Practices
+Q(P,'Welche Practice hat einen Zweck, der die schnellstmögliche Wiederherstellung des normalen Servicebetriebs umfasst?',['Problem Management','Service Request Management','Incident Management','Change Enablement'],2,'Incident Management|Schnellstmögliche Wiederherstellung des normalen Servicebetriebs nach einem Vorfall, um Auswirkungen auf das Business zu minimieren.');
+Q(P,'Welche Practice verfolgt einen Zweck, der die Unterstützung der Organisation bei der Maximierung des Mehrwerts, der Kontrolle der Kosten und dem Management von Risiken umfasst?',['Service Level Management','IT Asset Management','Supplier Management','Continual Improvement'],1,'IT Asset Management|Wert von IT-Assets maximieren, Kosten kontrollieren, Risiken durch Lifecycle-Management beherrschen.');
+Q(P,'Welche Practice stellt sicher, dass genaue und zuverlässige Informationen über Configuration Items und die Beziehungen zwischen diesen verfügbar sind?',['IT Asset Management','Monitoring and Event Management','Service Configuration Management','Change Enablement'],2,'Service Configuration Management|Pflege und Bereitstellung aktueller Informationen über CIs und ihre Beziehungen in der CMDB.');
+Q(P,'Welche Practice bietet Unterstützung für das Managen von Feedback, Lob und Beschwerden von Anwendern?',['Relationship Management','Service Request Management','Service Level Management','Incident Management'],1,'Service Request Management|Feedback, Lob und Beschwerden zählen zu den vom Anwender initiierten Service Requests. (Der Service Desk nimmt sie entgegen, die Practice dahinter ist Service Request Management.)');
+Q(P,'Welche Aussage über die Service Desk Practice ist RICHTIG?',['Der Service Desk braucht kein technisches Verständnis','Der Service Desk soll Incidents und Service Requests erfassen und managen','Der Service Desk ersetzt Problem Management vollständig','Der Service Desk autorisiert alle Normal Changes'],1,'Service Desk|Erfasst und managt Incidents und Service Requests und ist die primäre Schnittstelle zwischen Provider und Anwendern.');
+Q(P,'Welchen Zweck verfolgt die Relationship Management Practice?',['Sicherstellen, dass alle Änderungen genehmigt werden','Etablieren und Pflegen von Verbindungen zwischen der Organisation und ihren Stakeholdern','Erfassen und Lösen von Incidents in kürzester Zeit','Überwachen der Serviceperformance gegen vereinbarte SLAs'],1,'Relationship Management|Aufbau und Pflege von Beziehungen zwischen Organisation und Stakeholdern auf strategischer und taktischer Ebene.');
+Q(P,'Welche Practice ermöglicht die Transparenz der Services der Organisation, indem sie die Performance des Service erfasst und entsprechende Berichte erstellt?',['Monitoring and Event Management','Service Level Management','Continual Improvement','Service Configuration Management'],1,'Service Level Management|SLM erfasst Service-Performance, vergleicht sie mit vereinbarten Zielen und erstellt Berichte.');
+Q(P,'Welche Practice kann die Initiierung einer Notfallwiederherstellung umfassen?',['Problem Management','Change Enablement','IT Asset Management','Service Continuity Management'],3,'Service Continuity Management|Stellt sicher, dass Services auch bei Katastrophen verfügbar bleiben, inklusive Disaster Recovery.');
+Q(P,'Welche Aussage über Known Errors und Probleme ist RICHTIG?',['Ein Known Error ist immer ein gelöstes Problem','Ein Known Error ist ein Problem, das analysiert wurde, aber noch nicht gelöst ist','Probleme sind immer schwerwiegender als Known Errors','Known Errors werden im Incident-Register erfasst'],1,'Known Error|Ursache und Workaround sind bekannt, aber es gibt noch keine dauerhafte Lösung.');
+Q(P,'Was sollte bei jedem Problem getan werden?',['Sofort einen Emergency Change einleiten','Priorisieren basierend auf Risiko und Impact','Automatisch einen Major Incident ausrufen','Das Problem dem Change Advisory Board vorlegen'],1,'Problem Management|Probleme werden nach Risiko und potenziellem Impact priorisiert.');
+Q(P,'Was ist ein Problem?',['Ein ungeplanter Serviceausfall oder Qualitätsverlust','Eine Ursache oder potenzielle Ursache für einen oder mehrere Incidents','Ein formaler Antrag auf eine Serviceleistung','Ein CI, das aus dem Betrieb genommen wird'],1,'Problem|Eine Ursache oder potenzielle Ursache für einen oder mehrere Incidents.');
+Q(P,'Was ist ein Incident?',['Eine geplante Unterbrechung eines Services','Ein ungeplanter Serviceausfall oder eine ungeplante Qualitätsminderung','Eine Anfrage nach Information oder Standardleistung','Eine bekannte Fehlerursache mit Workaround'],1,'Incident|Eine ungeplante Unterbrechung eines Services oder eine Verringerung seiner Qualität.');
+Q(P,'Welche Art von Change wird am EHESTEN durch die Service Request Management Practice gemanagt?',['Emergency Change','Normal Change','Standard Change','Major Change'],2,'Standard Change|Service Requests sind meist vorautorisierte, risikoarme Standard-Changes, z. B. Passwort-Reset oder Software-Installation.');
+Q(P,'Welche Aussage über Change-Autorisierung ist RICHTIG?',['Alle Changes benötigen die Genehmigung des CAB','Emergency Changes werden vor der Implementierung vollständig dokumentiert','Für jeden Change-Typ sollte die passende Autorisierungsebene definiert sein','Normal Changes benötigen keine Genehmigung'],2,'Change Enablement|Für jeden Change-Typ ist eine passende Autorisierungsebene festzulegen.');
+Q(P,'Was ist das BESTE Beispiel für einen Emergency Change?',['Eine geplante Serveraufrüstung','Eine neue Softwareeinführung nach CAB-Genehmigung','Ein Patch zur Behebung einer kritischen Sicherheitslücke im laufenden Betrieb','Die regelmäßige Passwortzurücksetzung'],2,'Emergency Change|Notfall-Changes beheben kritische Vorfälle schnellstmöglich, z. B. ein Sicherheitspatch.');
+Q(P,'Wovon hängt die maximale Effizienz der Service Request Management Practice ab?',['Von der Größe des Service Desks','Von klar definierten, standardisierten und automatisierten Prozessen für häufige Anfragen','Von der Anzahl der verfügbaren Emergency Changes','Von der Qualität der SLAs'],1,'Service Request Management|Effizienz entsteht durch Standardisierung und Automatisierung häufiger Anfragen, z. B. per Self-Service-Portal.');
+Q(P,'Was ist der Unterschied zwischen einer Anfrage (Service Request) und einem Incident?',['Es gibt keinen Unterschied','Eine Anfrage ist eine formale Anforderung für etwas Vorgesehenes; ein Incident ist eine ungeplante Unterbrechung','Anfragen werden immer eskaliert, Incidents nicht','Incidents werden vom CAB bearbeitet, Anfragen vom Service Desk'],1,'Service Request vs. Incident|Request = formale Anforderung (z. B. Software installieren). Incident = ungeplante Unterbrechung. Beide nimmt der Service Desk entgegen.');
+
+// ---- 26-32 SVS
+Q('Service Value System','Wie wandeln alle Wertschöpfungskettenaktivitäten Inputs in Outputs um?',['Durch den Einsatz von Practices','Durch die Genehmigung des CAB','Durch den Service-Katalog','Durch die CMDB'],0,'Service Value Chain|Alle sechs Aktivitäten nutzen Practices, um Inputs in Outputs umzuwandeln.');
+Q('Service Value System','Welche Wertschöpfungskettenaktivität kommuniziert den aktuellen Status aller vier Dimensionen des Service Management?',['Deliver & Support','Obtain/Build','Plan','Engage'],2,'Plan|Liefert ein gemeinsames Verständnis von Vision und aktuellem Status für alle vier Dimensionen.');
+Q('Service Value System','Was soll eine Organisation bei der Einführung und Anpassung von ITIL-Leitlinien unterstützen?',['Das Change Advisory Board','Die vier Dimensionen des Service Management','Die Guiding Principles','Die Service Level Agreements'],2,'Guiding Principles|Die sieben Grundprinzipien sind universelle Empfehlungen, die bei Einführung und Anpassung von ITIL leiten.');
+Q('Service Value System','Worauf sollten alle Entscheidungen im Rahmen des Continual Improvement basieren?',['Auf Annahmen des Managements','Auf genauen, sorgfältig gesammelten Daten','Auf dem Ergebnis von Emergency Changes','Auf dem Feedback des CAB'],1,'Continual Improvement|Datenbasierte Entscheidungen – Verbesserungen müssen durch Messung und Analyse belegt werden.');
+Q('Service Value System','Welche Komponente des Service Value Systems beschreibt die Aktivitäten, die eine Organisation ausführt, um Wert zu schaffen?',['Governance','Service Value Chain','Practices','Guiding Principles'],1,'Service Value Chain|Sechs Aktivitäten: Plan, Improve, Engage, Design and Transition, Obtain/Build, Deliver and Support.');
+Q('Service Value System','Welche sechs Aktivitäten gehören zur Service Value Chain?',['Plan, Design, Build, Test, Deploy, Run','Plan, Improve, Engage, Design and Transition, Obtain/Build, Deliver and Support','Strategy, Design, Transition, Operation, Improvement, Retirement','Identify, Plan, Design, Build, Test, Deploy'],1,'Service Value Chain|Plan, Improve, Engage, Design and Transition, Obtain/Build sowie Deliver and Support.');
+Q('Service Value System','Was sind die fünf Komponenten des Service Value Systems (SVS)?',['Vision, Mission, Strategy, Tactics, Operations','Guiding Principles, Governance, Service Value Chain, Practices, Continual Improvement','People, Process, Technology, Partners, Information','Plan, Engage, Build, Deliver, Improve'],1,'SVS-Komponenten|Guiding Principles, Governance, Service Value Chain, Practices und Continual Improvement.');
+
+// ---- 33-42 Grundkonzepte
+Q('Grundkonzepte','Was ist ein Output?',['Das Ergebnis für einen Stakeholder','Ein greifbares oder nicht greifbares Lieferobjekt einer Aktivität','Der Nutzen, den ein Service für den Kunden erzeugt','Ein Messwert zur Erfolgskontrolle'],1,'Output|Ein greifbares oder nicht greifbares Lieferobjekt, das aus einer Aktivität resultiert.');
+Q('Grundkonzepte','Welcher Begriff beschreibt die von einem Service angebotene Funktionalität?',['Utility (Nutzen)','Warranty (Gewährleistung)','Outcome (Ergebnis)','Value (Wert)'],0,'Utility|Funktionalität – passt es zum Zweck? (fit for purpose). Warranty = Zuverlässigkeit (fit for use).');
+Q('Grundkonzepte','Was stellt eine Möglichkeit dar, gemeinsamen Mehrwert zu schaffen, indem das Erreichen der von Kunden angestrebten Ergebnisse erleichtert wird?',['Ein Asset','Ein Service','Ein Output','Ein Prozess'],1,'Service|Mittel zur gemeinsamen Wertschöpfung, ohne dass der Kunde bestimmte Kosten und Risiken selbst managen muss.');
+Q('Grundkonzepte','Identifizieren Sie das fehlende Wort: Ein Kunde ist eine Person, die die Anforderungen an einen Service definiert und die Verantwortung für die [?] des Servicekonsums übernimmt.',['Finanzierung','Ergebnisse','Automatisierung','Dokumentation'],1,'Ergebnisse (Outcomes)|Der Kunde definiert Anforderungen und ist für die Outcomes des Servicekonsums verantwortlich.');
+Q('Grundkonzepte','Identifizieren Sie das fehlende Wort: Ein Known Error ist ein Problem, das [?] und nicht gelöst wurde.',['eskaliert','analysiert','automatisiert','dokumentiert'],1,'Analysiert|Ursache analysiert, Workaround vorhanden, aber noch keine dauerhafte Lösung.');
+Q('Grundkonzepte','Was ist der Ausgangspunkt für Optimierung?',['Ein genehmigter Change','Das Verständnis der Vision und Ziele der Organisation','Die Implementierung neuer Tools','Die Erstellung eines neuen SLA'],1,'Optimieren und automatisieren|Optimierung beginnt mit dem Verständnis von Vision und Zielen der Organisation – nur so lässt sich bestimmen, was in welche Richtung optimiert wird.');
+Q('Grundkonzepte','Warum sollten Incidents priorisiert werden?',['Um die Kosten für den Service Desk zu reduzieren','Um sicherzustellen, dass Incidents mit dem größten Business-Impact zuerst behandelt werden','Um die Anzahl von Problems zu reduzieren','Um Emergency Changes zu vermeiden'],1,'Incident Management|Kritische Vorfälle zuerst. Grundlage: Impact × Urgency.');
+Q('Grundkonzepte','Was versteht man unter Warranty eines Service?',['Die Funktionalität des Service','Die Zuverlässigkeit des Service (Verfügbarkeit, Kapazität, Sicherheit, Kontinuität)','Den Preis des Service','Die Beschreibung des Service im Katalog'],1,'Warranty|Zuverlässigkeit: verfügbar, sicher, kontinuierlich, richtige Kapazität (fit for use).');
+Q('Grundkonzepte','Was ist der Unterschied zwischen Outcome und Output?',['Es gibt keinen Unterschied','Output ist das direkte Ergebnis einer Aktivität; Outcome ist die Wirkung für einen Stakeholder','Outcome kommt vor dem Output','Output ist für den Kunden; Outcome ist intern'],1,'Output vs. Outcome|Output = was geliefert wird (z. B. ein Bericht). Outcome = Wirkung beim Stakeholder (z. B. bessere Entscheidungen).');
+Q('Grundkonzepte','Was beschreibt der Begriff „Wert“ (Value) in ITIL 4?',['Den Preis eines Services','Den wahrgenommenen Nutzen, die Wichtigkeit und den Vorteil einer Sache für die Stakeholder','Die Anzahl der gelieferten Outputs','Den ROI einer IT-Investition'],1,'Value|Wert ist subjektiv, wird von Stakeholdern wahrgenommen und entsteht in Zusammenarbeit von Provider und Konsument.');
+
+// ---- 43-47 Vier Dimensionen
+Q('Vier Dimensionen','Welche Dimension des Service Management bezieht sich auf Governance, Management und Kommunikation?',['Information & Technologie','Partner & Lieferanten','Wertströme & Prozesse','Organisationen & Menschen'],3,'Organisationen & Menschen|Struktur, Rollen, Verantwortlichkeiten, Governance, Kultur und Kommunikation.');
+Q('Vier Dimensionen','Welche der vier Dimensionen befasst sich mit Lieferantenbeziehungen und Verträgen?',['Organisationen & Menschen','Information & Technologie','Partner & Lieferanten','Wertströme & Prozesse'],2,'Partner & Lieferanten|Alle externen Parteien der Servicelieferung sowie Verträge und Vereinbarungen.');
+Q('Vier Dimensionen','Welche Dimension beschreibt die Schritte und Aktivitäten, die eine Organisation durchführt, um Wert zu schaffen?',['Organisationen & Menschen','Information & Technologie','Partner & Lieferanten','Wertströme & Prozesse'],3,'Wertströme & Prozesse|Wie die Teile der Organisation integriert und koordiniert zusammenarbeiten.');
+Q('Vier Dimensionen','Was sind die vier Dimensionen des Service Management?',['Menschen, Prozess, Technologie, Partner','Organisationen & Menschen; Information & Technologie; Partner & Lieferanten; Wertströme & Prozesse','Vision, Mission, Strategy, Tactics','Plan, Design, Transition, Operation'],1,'Vier Dimensionen|Organisationen & Menschen, Information & Technologie, Partner & Lieferanten, Wertströme & Prozesse. Alle vier müssen berücksichtigt werden.');
+Q('Vier Dimensionen','Welche externen Faktoren beeinflussen die vier Dimensionen laut ITIL 4?',['Nur interne Faktoren sind relevant','PESTLE-Faktoren: Political, Economic, Social, Technological, Legal, Environmental','Die Meinung des CAB','SLA-Vereinbarungen'],1,'PESTLE|Politisch, wirtschaftlich, sozial, technologisch, rechtlich, umweltbezogen.');
+
+// ---- 48-56 Continual Improvement
+Q('Continual Improvement','Welchen Effekt hat die zunehmende Automatisierung auf die Service Desk Practice?',['Sie macht den Service Desk vollständig überflüssig','Sie verlagert den Fokus auf Incidents, die menschliches Urteilsvermögen erfordern','Sie erhöht die Anzahl von Emergency Changes','Sie reduziert die Notwendigkeit von SLAs'],1,'Service Desk & Automatisierung|Routine wird automatisiert, der Service Desk konzentriert sich auf komplexe Fälle mit Empathie und Erfahrung.');
+Q('Continual Improvement','Warum sollten Service-Desk-Mitarbeiter wiederkehrende Schwierigkeiten aufdecken?',['Um Change-Anträge zu vermeiden','Um Problem Management zu unterstützen und die Ursachen von Incidents zu identifizieren','Um neue SLAs zu entwickeln','Um Emergency Changes zu autorisieren'],1,'Service Desk & Problem Management|Erkannte Muster sind wertvoller Input für Problem Management.');
+Q('Continual Improvement','Welche gemeinsame Aktivität stellt eine kontinuierliche gemeinsame Schaffung von Mehrwert sicher?',['Change-Autorisierung','Service-Interaktion (Service Interaction)','Incident-Eskalation','Release-Planung'],1,'Service Interaction|Wert entsteht durch kontinuierliche Interaktion von Provider und Konsument (Co-Creation).');
+Q('Continual Improvement','Wie trägt das Engagement der Kunden zur Service Level Management Practice bei?',['Es ist nicht relevant für SLM','Es liefert Informationen für Messgrößen UND stellt sicher, dass vereinbarte Service Levels erfüllt werden','Es definiert nur die Workflows für Service Requests','Es autorisiert alle Normal Changes'],1,'SLM & Kundenbeteiligung|Kunden liefern Informationen für Messgrößen und tragen zu Gesprächen über den Fortschritt bei.');
+Q('Continual Improvement','Was ist das Ziel des Continual Improvement Model?',['Alle Prozesse einmalig zu optimieren','Eine strukturierte Methode für kontinuierliche Verbesserung auf allen Ebenen der Organisation bereitzustellen','Nur technische Verbesserungen zu managen','Verbesserungen ausschließlich durch das CAB zu steuern'],1,'Continual Improvement Model|Strukturierte Methode auf strategischer, taktischer und operativer Ebene.');
+Q('Continual Improvement','Was ist die erste Frage im Continual Improvement Model?',['Wo sind wir jetzt?','Was ist die Vision?','Wie kommen wir dorthin?','Wie halten wir den Schwung aufrecht?'],1,'Continual Improvement Model|Die erste Frage ist „Was ist die Vision?“ – sie verankert alle Verbesserungen in den Geschäftszielen.');
+Q('Continual Improvement','Identifizieren Sie das fehlende Wort: Der Zweck der [?] Practice ist sicherzustellen, dass die Organisation mit allen Stakeholdern gemeinsamen Mehrwert schafft.',['IT Asset Management','Relationship Management','Service Level Management','Continual Improvement'],1,'Relationship Management|Sichert die kontinuierliche gemeinsame Wertschöpfung mit allen Stakeholdern.');
+Q('Continual Improvement','Welcher Zweck der Monitoring and Event Management Practice trifft am besten zu?',['Schnellstmögliche Lösung von Incidents','Systematisches Beobachten von Services und CIs sowie Aufzeichnung und Auswertung ausgewählter Ereignisse','Verwaltung von Änderungen an der IT-Infrastruktur','Bereitstellung eines Single Point of Contact für Anwender'],1,'Monitoring and Event Management|Systematisch beobachten und auf Events reagieren – Basis für proaktives Service Management.');
+Q('Continual Improvement','Wie sollte eine Organisation Drittanbieter in die ständige Verbesserung von Services einbeziehen?',['Drittanbieter haben keinen Anteil an Continual Improvement','Durch Einbindung in relevante Verbesserungsaktivitäten und entsprechende vertragliche Vereinbarungen','Durch vollständige Übernahme aller Maßnahmen durch den Drittanbieter','Nur wenn der Drittanbieter selbst Verbesserungen vorschlägt'],1,'Supplier Management & CI|Drittanbieter in Verbesserungsaktivitäten einbinden; vertragliche Regelungen sichern die Verbindlichkeit.');
+
+// ---- 57-60
+Q('Service Value System','Was ist der Unterschied zwischen einem Service und einem Produkt in ITIL 4?',['Es gibt keinen Unterschied','Ein Produkt ist eine Konfiguration von Ressourcen; ein Service ermöglicht Wertschöpfung, ohne Kosten/Risiken selbst managen zu müssen','Produkte sind immer physisch; Services immer digital','Services werden intern genutzt; Produkte extern verkauft'],1,'Produkt vs. Service|Produkt = Konfiguration von Ressourcen. Service = Wertschöpfung ohne eigene Kosten und Risiken.');
+Q('Grundkonzepte','Was versteht man unter einem Wertstrom (Value Stream)?',['Eine Liste aller Services','Eine Reihe von Schritten, die eine Organisation unternimmt, um ein wertvolles Produkt oder einen wertvollen Service zu schaffen','Den Jahresumsatz der IT-Abteilung','Ein Diagramm der Netzwerktopologie'],1,'Value Stream|Schritte zur Erstellung und Lieferung eines wertvollen Produkts oder Services.');
+Q(P,'Was ist das Ziel von Problem Management?',['Incidents so schnell wie möglich zu lösen','Die Wahrscheinlichkeit und Auswirkung von Incidents zu reduzieren durch Identifizierung von Ursachen','Alle Changes zu genehmigen','SLAs zu verwalten'],1,'Problem Management|Wahrscheinlichkeit und Impact von Incidents senken, indem Ursachen proaktiv gefunden und behoben werden.');
+Q(P,'Welche drei Phasen hat Problem Management?',['Identify, Analyse, Solve','Problem Identification, Problem Control, Error Control','Report, Escalate, Resolve','Log, Assign, Close'],1,'Problem-Management-Phasen|Problem Identification, Problem Control (Analyse, Workaround), Error Control (Dauerlösung, Known Errors).');
+
+// ---- 61-90 Szenarien
+Q('S:Incident Management','Ein Anwender meldet, dass er sich nicht in sein E-Mail-Konto einloggen kann. Der Service Desk löst das Problem durch einen Passwortreset. Was wurde hier bearbeitet?',['Ein Problem','Ein Known Error','Ein Incident','Ein Service Request'],2,'Incident|Ungeplante Unterbrechung (kein E-Mail-Zugang). Ein Service Request wäre z. B. ein neues Postfach.');
+Q('S:Incident Management','Der Service Desk bemerkt, dass jeden Montagmorgen 20 Anwender denselben Login-Fehler melden. Was sollte ALS ERSTES getan werden?',['Jeden Montag schneller lösen','Einen Problem Record erstellen und die Ursache untersuchen','Einen Emergency Change beantragen','Das SLA für Montage anpassen'],1,'Problem Management|Wiederkehrende Incidents mit gleichem Muster deuten auf ein Problem hin – Problem Record = erster Schritt.');
+Q('S:Problem Management','Das IT-Team hat die Ursache eines wiederkehrenden Serverabsturzes identifiziert, kann sie aber nicht sofort beheben. Sie dokumentieren einen Workaround. Was wurde dadurch erstellt?',['Ein Incident Record','Ein Known Error','Ein Standard Change','Ein Service Request'],1,'Known Error|Ursache und Workaround bekannt und dokumentiert, Dauerlösung steht aus.');
+Q('S:Change Enablement','Ein Entwickler möchte einen kleinen CSS-Fix auf der Unternehmenswebseite deployen. Dieser Prozess ist standardisiert und vorautorisiert. Um welchen Change-Typ handelt es sich?',['Emergency Change','Normal Change','Standard Change','Major Change'],2,'Standard Change|Vorautorisiert, risikoarm, standardisiert – keine separate Genehmigung nötig.');
+Q('S:Change Enablement','Während eines Produktionsausfalls entdeckt das Team eine kritische Sicherheitslücke. Der CISO fordert eine sofortige Behebung. Welcher Change-Typ wird eingeleitet?',['Standard Change','Normal Change','Emergency Change','Routine Change'],2,'Emergency Change|Beschleunigter, aber nicht ausgelassener Genehmigungsprozess bei kritischen Lücken oder schweren Incidents.');
+Q('S:Service Desk','Ein Anwender ruft an und möchte wissen, wie er einen Urlaubsantrag im HR-System stellt. Was ist das HAUPTSÄCHLICHE Ziel des Service Desks in dieser Situation?',['Einen Incident eröffnen','Den Anwender an die HR-Abteilung weiterleiten','Den Anwender unterstützen und die Anfrage erfassen','Einen Problem Record erstellen'],2,'Service Desk|Single Point of Contact: Unterstützen und die Informationsanfrage (Service Request) erfassen.');
+Q('S:Service Desk','Ein Unternehmen automatisiert einfache Passwortzurücksetzungen über ein Self-Service-Portal. Welche Auswirkung hat das HAUPTSÄCHLICH auf den Service Desk?',['Der Service Desk wird überflüssig','Der Service Desk kann sich auf komplexere Anfragen und Incidents konzentrieren','Die Anzahl der Incidents steigt','Die SLAs müssen neu verhandelt werden'],1,'Automatisierung|Routine wird automatisiert; Mitarbeiter konzentrieren sich auf Fälle, die Urteilsvermögen erfordern.');
+Q('S:Grundprinzipien','Eine Organisation möchte ITIL einführen und beginnt damit, alle bestehenden Prozesse komplett neu zu gestalten. Welches Grundprinzip wird dabei MISSACHTET?',[GP[0],GP[1],GP[5],GP[6]],1,'Dort beginnen, wo man steht|Bestehendes bewerten und wiederverwenden – alles von null neu aufzubauen widerspricht dem Prinzip.');
+Q('S:Grundprinzipien','Ein Projektteam verbringt 6 Monate damit, den perfekten Plan zu entwickeln, bevor es mit der Umsetzung beginnt. Welches Grundprinzip sollte HAUPTSÄCHLICH angewendet werden?',[GP[4],GP[3],GP[2],GP[0]],2,'Iterative Weiterentwicklung mit Feedback|Kleine Schritte liefern und früh Feedback einholen – weniger Risiko, schneller Mehrwert.');
+Q('S:Grundprinzipien','Ein IT-Manager möchte einen neuen Service einführen und fragt sich, ob er Kunden einbeziehen oder die Lösung intern entwickeln soll. Welches Prinzip gibt die klare Antwort?',[GP[5],GP[6],GP[3],GP[1]],2,'Zusammenarbeiten und Transparenz fördern|Stakeholder inklusive Kunden einbeziehen – ihr Wissen führt zu besseren Lösungen.');
+Q('S:Service Level Management','Ein Kunde beschwert sich, dass die vereinbarte Reaktionszeit von 4 Stunden regelmäßig nicht eingehalten wird. Welche Practice ist HAUPTSÄCHLICH verantwortlich, dies zu erkennen und zu eskalieren?',['Incident Management','Problem Management','Service Level Management','Monitoring and Event Management'],2,'Service Level Management|SLM überwacht vereinbarte Service Levels und berichtet Abweichungen.');
+Q('S:Service Level Management','Eine Organisation möchte sicherstellen, dass Kunden den Wert der erbrachten Services verstehen. Welche Practice unterstützt dies HAUPTSÄCHLICH?',['Incident Management','IT Asset Management','Service Level Management','Change Enablement'],2,'Service Level Management|Berichte über die Service-Performance schaffen Transparenz und machen den Wert sichtbar.');
+Q('S:Continual Improvement','Eine Organisation möchte ihre IT-Services verbessern. Der CIO fragt: „Wo fangen wir an?“ Was ist gemäß dem Continual Improvement Model die ERSTE Frage?',['Wo sind wir jetzt?','Wie kommen wir dorthin?','Was ist die Vision?','Haben wir es geschafft?'],2,'Continual Improvement Model|Immer zuerst: „Was ist die Vision?“ – sie gibt die Richtung vor.');
+Q('S:Continual Improvement','Nach einer Verbesserungsinitiative möchte das Team wissen, ob die Maßnahmen erfolgreich waren. Welche Frage des Continual Improvement Models stellen sie?',['Was ist die Vision?','Wo sind wir jetzt?','Haben wir es geschafft?','Wie halten wir den Schwung aufrecht?'],2,'Continual Improvement Model|„Haben wir es geschafft?“ prüft den Erfolg durch Messung und Vergleich mit dem Ausgangszustand.');
+Q('S:Vier Dimensionen','Eine Organisation stellt fest, dass ihre IT-Mitarbeiter nicht wissen, wie sie mit neuen Technologien umgehen sollen. Welche Dimension des Service Management ist HAUPTSÄCHLICH betroffen?',['Information & Technologie','Partner & Lieferanten','Wertströme & Prozesse','Organisationen & Menschen'],3,'Organisationen & Menschen|Fehlende Kenntnisse – Schulung und Kompetenzentwicklung gehören hierher.');
+Q('S:Vier Dimensionen','Ein Unternehmen verlässt sich bei der Servicelieferung stark auf einen externen Cloud-Anbieter. Welche Dimension ist dabei HAUPTSÄCHLICH relevant?',['Organisationen & Menschen','Information & Technologie','Partner & Lieferanten','Wertströme & Prozesse'],2,'Partner & Lieferanten|Externe Anbieter, ihre Verträge und die Zusammenarbeit mit ihnen.');
+Q('S:Service Value System','Ein Unternehmen möchte einen neuen Laptop-Bestellprozess einführen. Welche Aktivität der Service Value Chain ist HAUPTSÄCHLICH für die Entwicklung des neuen Prozesses verantwortlich?',['Plan','Engage','Design and Transition','Deliver and Support'],2,'Design and Transition|Entwerfen und Einführen neuer Services und Prozesse – von der Konzeption bis zur Produktivsetzung.');
+Q('S:Service Value System','Welche Aktivität der Service Value Chain stellt sicher, dass Anwender im Betrieb unterstützt werden und Incidents schnell behoben werden?',['Plan','Obtain/Build','Design and Transition','Deliver and Support'],3,'Deliver and Support|Services werden spezifikationsgemäß geliefert und im Betrieb unterstützt, inklusive Incident-Bearbeitung.');
+Q('S:Grundkonzepte','Ein Kunde kauft eine Cloud-Speicherlösung. Er muss sich nicht um Server, Updates oder Backups kümmern. Was beschreibt dies HAUPTSÄCHLICH?',['Utility des Service','Warranty des Service','Wertschöpfung – Ergebnisse ohne eigene Kosten und Risiken','Einen Standard Change'],2,'Service-Definition|Kunden erzielen gewünschte Ergebnisse, ohne bestimmte Kosten und Risiken selbst zu managen.');
+Q('S:Grundkonzepte','Ein Druckerservice ist verfügbar, sicher und hat genügend Kapazität. Was beschreibt dies in ITIL-Terminologie?',['Utility des Service','Warranty des Service','Outcome des Service','Output des Service'],1,'Warranty|Verfügbarkeit, Sicherheit, Kapazität = Zuverlässigkeit (fit for use), nicht Utility (fit for purpose).');
+Q('S:Grundkonzepte','Ein Anwender erhält einen monatlichen Bericht über die Systemverfügbarkeit. Der Bericht selbst ist ein [?], die verbesserte Entscheidungsgrundlage des Managers ist ein [?].',['Outcome dann Output','Output dann Outcome','Service dann Produkt','Produkt dann Service'],1,'Output vs. Outcome|Bericht = Output (Lieferobjekt). Bessere Entscheidungsgrundlage = Outcome (Wirkung beim Stakeholder).');
+Q('S:Incident Management','Ein Major Incident tritt auf – das ERP-System ist für alle 500 Anwender nicht verfügbar. Was hat bei der Bearbeitung höchste Priorität?',['Die Ursache vollständig analysieren','Den normalen Servicebetrieb so schnell wie möglich wiederherstellen','Einen Problem Record erstellen','Einen Change-Antrag stellen'],1,'Incident Management|Immer zuerst wiederherstellen. Die Ursachenanalyse ist Aufgabe des Problem Managements – danach.');
+Q('S:Problem Management','Das Problem-Management-Team hat die Ursache eines Problems gefunden und dauerhaft behoben. Was passiert mit dem Known-Error-Eintrag?',['Er bleibt unverändert in der KEDB','Er wird geschlossen und das zugrunde liegende Problem ebenfalls','Er wird in einen Incident umgewandelt','Er wird dem CAB vorgelegt'],1,'Problem Management|Bei dauerhafter Behebung werden Known Error und Problem Record geschlossen, die KEDB wird aktualisiert.');
+Q('S:Relationship Management','Ein wichtiger Kunde ist unzufrieden, weil er das Gefühl hat, nicht genügend über geplante Änderungen informiert zu werden. Welche Practice sollte HAUPTSÄCHLICH verbessert werden?',['Change Enablement','Incident Management','Relationship Management','Service Configuration Management'],2,'Relationship Management|Kommunikation mit Stakeholdern und Erwartungsmanagement sind Kernaufgaben.');
+Q('S:Grundprinzipien','Ein Team möchte einen neuen Reporting-Prozess einführen. Es gibt bereits 12 verschiedene Reports. Was empfiehlt „Auf Einfachheit und Praktikabilität achten“ ALS ERSTES?',['Sofort alle 12 Reports löschen','Die bestehenden Reports bewerten und prüfen, welche wirklich Mehrwert liefern','Sofort 5 neue Reports hinzufügen','Einen CAB einberufen'],1,'Einfachheit und Praktikabilität|Erst bewerten, was Mehrwert liefert, dann vereinfachen – nicht reflexartig löschen oder hinzufügen.');
+Q('S:Continual Improvement','Eine Organisation verbessert ihren Incident-Prozess. Nach 3 Monaten zeigen die Daten keine Verbesserung. Was sollte HAUPTSÄCHLICH getan werden?',['Den Prozess sofort wieder abschaffen','Die Messmethode und den Ansatz kritisch überprüfen und anpassen','Mehr Mitarbeiter einstellen','Ein neues Tool kaufen'],1,'Iterative Weiterentwicklung mit Feedback|Zeigen Daten keine Verbesserung, werden Messmethode und Ansatz hinterfragt. Feedback ist Basis für Kurskorrektur.');
+Q('S:Service Configuration Management','Ein Techniker ändert einen Server, ohne das Change-Verfahren zu durchlaufen. Dadurch stimmen die Daten in der CMDB nicht mehr. Welche Practice wurde HAUPTSÄCHLICH vernachlässigt?',['Incident Management','Service Configuration Management','IT Asset Management','Monitoring and Event Management'],1,'Service Configuration Management|Aktuelle, korrekte CI-Daten in der CMDB sind Kernaufgabe.');
+Q('S:IT Asset Management','Ein Unternehmen weiß nicht, welche Software-Lizenzen auf welchen Geräten installiert sind. Bei einem Audit drohen hohe Strafen. Welche Practice hätte das verhindern können?',['Change Enablement','Service Desk','IT Asset Management','Problem Management'],2,'IT Asset Management|Verwaltung des gesamten Lebenszyklus von IT-Assets inklusive Lizenzen. Fehlende Transparenz = Compliance-Risiko.');
+Q('S:Service Continuity','Ein Rechenzentrum fällt durch einen Brand aus. Das Unternehmen hat einen Wiederherstellungsplan, der sofort aktiviert wird. Welche Practice ist hierfür verantwortlich?',['Incident Management','Problem Management','Change Enablement','Service Continuity Management'],3,'Service Continuity Management|Planung und Aktivierung von Wiederherstellungsmaßnahmen nach katastrophalen Ereignissen.');
+Q('S:Grundprinzipien','Eine neue IT-Leiterin möchte wissen, welche Verbesserungen sie zuerst angehen soll. Sie schaut sich Kennzahlen, Kundenfeedback und laufende Projekte an. Welches Prinzip wendet sie an?',[GP[0],GP[2],GP[1],GP[6]],2,'Dort beginnen, wo man steht|Vor der Planung den aktuellen Zustand objektiv bewerten – durch Messung, Beobachtung und Analyse.');
+
+// ---- 91-115 Musterprüfung
+Q('M:Service Level Management','Wie trägt das Engagement der Kunden zur Service Level Management Practice bei? 1. Es erfasst Informationen, auf denen Messgrößen basieren können 2. Es stellt sicher, dass die Organisation definierte Service Levels erfüllt 3. Es definiert die Workflows für Service Requests 4. Es unterstützt Gespräche über den Fortschritt',['1 und 4','1 und 2','3 und 4','2 und 3'],0,'Richtig: 1 und 4|Kundenbeteiligung liefert Informationen für Messgrößen und unterstützt Fortschrittsgespräche. (2 ist Aufgabe der Organisation, 3 gehört zu Service Request Management.)');
+Q('M:Supplier Management','Welche Überlegungen beeinflussen die Lieferantenstrategie einer Organisation?',['Verträge und Vereinbarungen','Grad der Formalität','Unternehmenskultur der Organisation','Art der Zusammenarbeit mit Lieferanten'],2,'Unternehmenskultur|Die Kultur (z. B. wie stark auf externe Partner gesetzt wird) beeinflusst die Lieferantenstrategie. Verträge sind Ergebnis der Strategie, nicht Einflussfaktor.');
+Q('M:Relationship Management','Welchen Zweck verfolgt die Relationship Management Practice?',['Aufbauen und Pflegen der Verbindungen zwischen der Organisation und ihren Stakeholdern auf strategischer und taktischer Ebene','Minimieren der negativen Auswirkung von Incidents, indem der normale Servicebetrieb schnellstmöglich wiederhergestellt wird','Anpassen der Practices und Services der Organisation an sich ändernde Geschäftsanforderungen','Reduzieren der Wahrscheinlichkeit und der Auswirkung von Incidents durch die Identifizierung tatsächlicher und potenzieller Ursachen'],0,'Relationship Management|Verbindungen zu Stakeholdern auf strategischer und taktischer Ebene. Option 2 = Incident Management, Option 4 = Problem Management.');
+Q('M:Grundkonzepte','Welcher Begriff beschreibt die von einem Service angebotene Funktionalität?',['Risiko','Kosten','Warranty','Utility'],3,'Utility|Funktionalität (fit for purpose). Warranty = Zuverlässigkeit (fit for use).');
+Q('M:IT Asset Management','Welche Practice verfolgt einen Zweck, der die Unterstützung der Organisation bei der Maximierung des Mehrwerts, der Kontrolle der Kosten und dem Management von Risiken umfasst?',['Service Desk','Release Management','Relationship Management','IT Asset Management'],3,'IT Asset Management|Mehrwert maximieren, Kosten kontrollieren, Risiken managen – über den gesamten Asset-Lebenszyklus.');
+Q('M:Continual Improvement','Wie sollte eine Organisation Drittanbieter in die ständige Verbesserung von Services einbeziehen?',['Nachweise anfordern, dass der Lieferant alle Verbesserungen mithilfe von Project Management Practices implementiert','Nachweise anfordern, dass der Lieferant Methoden der agilen Entwicklung verwendet','Sicherstellen, dass Lieferanten Details zu ihrem Ansatz für die Verbesserung von Services in Verträge aufnehmen','Sicherstellen, dass alle Problemmanagementaktivitäten des Lieferanten zu Verbesserungen führen'],2,'Verbesserungsansatz vertraglich verankern|Lieferanten halten ihren Ansatz zur Serviceverbesserung vertraglich fest – das schafft Verbindlichkeit, ohne eine Methode vorzuschreiben.');
+Q('M:Continual Improvement','Worauf sollten alle Entscheidungen im Rahmen des Continual Improvement basieren?',['Auf einer aktuellen Balanced Scorecard','Auf Details der Art und Weise, wie Services gemessen werden','Auf einer aktuellen Reifegradbewertung','Auf genauen und sorgfältig analysierten Daten'],3,'Genaue, analysierte Daten|Nur auf Basis genauer Daten lassen sich sinnvolle Verbesserungen identifizieren und bewerten.');
+Q('M:Service Level Management','Was ist der Grund für die Verwendung eines ausgeglichenen Satzes von Servicemessgrößen?',['Die Anzahl der Messgrößen, die gesammelt werden müssen, wird verringert','Es führt zu einer ergebnisbasierten Ansicht von Services','Für jedes Serviceelement wird ein separater Bericht erstellt','Es erleichtert die automatische Sammlung von Messgrößen'],1,'Ergebnisbasierte Ansicht|Ein ausgeglichener Satz (z. B. Verfügbarkeit, Zufriedenheit, Kosten) liefert eine ganzheitliche, ergebnisbasierte Sicht.');
+Q('M:Service Level Management','Welche Practice ermöglicht die Transparenz der Services der Organisation, indem sie die Performance des Service erfasst und entsprechende Berichte erstellt?',['Service Level Management','Service Configuration Management','Service Request Management','Service Desk'],0,'Service Level Management|Erfasst Performance, vergleicht sie mit Zielen und berichtet an Kunden und Management.');
+Q('M:Vier Dimensionen','Welche Dimension des Service Management bezieht sich auf Governance, Management und Kommunikation?',['Information und Technologie','Wertströme und Prozesse','Partner und Lieferanten','Organisationen und Menschen'],3,'Organisationen und Menschen|Governance-Strukturen, Managementrollen, Kommunikationswege und Kultur.');
+Q('M:Service Desk','Welchen Effekt hat die zunehmende Automatisierung auf die Service Desk Practice?',['Abnahme der Self-Service-Aktivitäten zur Incident-Erfassung und -Lösung','Incidents müssen nicht mehr an Support-Teams eskaliert werden','Die Möglichkeit, sich besser auf die Kundenerfahrung zu konzentrieren, wenn persönlicher Kontakt erforderlich ist','Die Möglichkeit, sich besser auf die Behebung technischer Probleme zu konzentrieren, anstatt Personen weiterzuhelfen'],2,'Fokus auf Kundenerfahrung|Automatisierung übernimmt Routine; der Service Desk kann sich auf Situationen konzentrieren, die Einfühlungsvermögen erfordern.');
+Q('M:Grundkonzepte','Was ist ein Output?',['Eine Statusänderung, die für das Management eines Configuration Item von Bedeutung ist','Etwas, das durch die Ausführung einer Aktivität geschaffen wird','Ein mögliches Event, das zu einem Schaden oder Verlust führen könnte','Ein Resultat für einen Stakeholder'],1,'Output|Etwas, das durch eine Aktivität geschaffen wird. Option 4 beschreibt ein Outcome.');
+Q('M:Service Value Chain','Welche Wertschöpfungskettenaktivität kommuniziert den aktuellen Status aller vier Dimensionen des Service Management?',['Engagement','Erhalten/Erstellen','Planung','Verbesserung'],2,'Planung (Plan)|Gemeinsames Verständnis von Vision, aktuellem Status und Verbesserungsrichtung für alle vier Dimensionen.');
+Q('M:Grundprinzipien','Welches Grundprinzip betont, wie wichtig es ist, den Ablauf von Work in Progress zu verstehen, Engpässe zu identifizieren und Verschwendung aufzudecken?',['Ganzheitlich denken und arbeiten','Zusammenarbeiten und Transparenz fördern','Auf Einfachheit und Praktikabilität achten','Fokus auf den Mehrwert'],1,'Zusammenarbeiten und Transparenz fördern|Arbeitsabläufe verstehen, Engpässe erkennen, Verschwendung aufdecken – durch Transparenz und Zusammenarbeit.');
+Q('M:Service Value System','Identifizieren Sie die fehlenden Wörter: Der Zweck des/der [?] ist sicherzustellen, dass die Organisation mit allen Stakeholdern entsprechend den Zielen der Organisation fortlaufend gemeinsamen Mehrwert schafft.',['vier Dimensionen des Service Management','Servicewertsystems','Service Request Management Practice','Grundprinzips Fokus auf den Mehrwert'],1,'Servicewertsystem (SVS)|Es sorgt dafür, dass die Organisation kontinuierlich gemeinsamen Mehrwert mit allen Stakeholdern schafft.');
+Q('M:Grundprinzipien','Welches Grundprinzip besagt, dass es wichtig ist, etwas zu tun, anstatt viel Zeit auf die Analyse unterschiedlicher Optionen zu verwenden?',['Optimieren und automatisieren','Fokus auf den Mehrwert','Iterative Weiterentwicklung mit Feedback','Dort beginnen, wo man steht'],2,'Iterative Weiterentwicklung mit Feedback|Lieber handeln, Feedback einholen und anpassen, als auf den perfekten Plan zu warten.');
+Q('M:Service Desk','Welche Aussage über die Service Desk Practice ist RICHTIG?',['Sie untersucht die Ursache von Incidents','Sie führt die Change-Bewertung und -Autorisierung durch','Sie erfordert ein praktisches Verständnis der Geschäftsprozesse','Sie ermöglicht Beziehungen mit Stakeholdern auf strategischer und taktischer Ebene'],2,'Praktisches Verständnis der Geschäftsprozesse|Nötig, um Anwender effektiv zu unterstützen. Ursachenanalyse = Problem Management, Change-Autorisierung = Change Enablement.');
+Q('M:Grundprinzipien','Was ist der Ausgangspunkt für Optimierung?',['Die Ermittlung der Elemente, bei denen die positiven Auswirkungen am größten sind','Das Verständnis der Vision und Ziele der Organisation','Die Standardisierung von Practices und Services','Die Sicherung des Engagements der Stakeholder'],1,'Vision und Ziele verstehen|Nur so lässt sich bestimmen, was optimiert werden soll und in welche Richtung.');
+Q('M:Service Request Management','Wovon hängt die maximale Effizienz der Service Request Management Practice ab?',['Lob und Beschwerden','Prozesse und Verfahren','Self-Service-Tools','Incident Management'],1,'Prozesse und Verfahren|Klar definierte, standardisierte (und automatisierte) Abläufe ermöglichen schnelle, konsistente Bearbeitung.');
+Q('M:Service Value System','Was soll eine Organisation bei der Einführung und Anpassung von ITIL-Leitlinien unterstützen?',['Die Service-Wertschöpfungskette','Practices','Die Grundprinzipien','Die vier Dimensionen des Service Management'],2,'Die Grundprinzipien|Universelle Empfehlungen, die bei Einführung und Anpassung von ITIL leiten.');
+Q('M:Problem Management','Identifizieren Sie das fehlende Wort: Ein Known Error ist ein Problem, das [?] und nicht gelöst wurde.',['erfasst','eskaliert','geschlossen','analysiert'],3,'Analysiert|Ursache bereits analysiert, Workaround existiert, aber noch keine Dauerlösung.');
+Q('M:Service Desk','Welche Practice bietet Unterstützung für das Managen von Feedback, Lob und Beschwerden von Anwendern?',['Service Request Management','Change Enablement','Problem Management','Incident Management'],0,'Service Request Management|Feedback, Lob und Beschwerden werden als besondere Art von Service Requests behandelt.');
+Q('M:Service Desk','Warum sollten Service-Desk-Mitarbeiter wiederkehrende Schwierigkeiten aufdecken?',['Um eine effektive Bearbeitung von Service Requests sicherzustellen','Um die richtige Change-Autorität einzubinden','Um das Identifizieren von Problemen zu erleichtern','Um Incidents an das richtige Support-Team zu eskalieren'],2,'Probleme identifizieren|Wiederkehrende Schwierigkeiten weisen auf zugrunde liegende Probleme hin – Input für Problem Management.');
+Q('M:Grundprinzipien','Welches Grundprinzip empfiehlt, den aktuellen Status zu bewerten und zu entscheiden, was wiederverwendet werden kann?',['Zusammenarbeiten und Transparenz fördern','Dort beginnen, wo man steht','Iterative Weiterentwicklung mit Feedback','Fokus auf den Mehrwert'],1,'Dort beginnen, wo man steht|Ist-Zustand analysieren, vorhandene Ressourcen, Prozesse und Tools bewerten.');
+Q('M:Service Configuration Management','Welche Practice stellt sicher, dass genaue und zuverlässige Informationen über Configuration Items (CI) und die Beziehungen zwischen diesen verfügbar sind?',['Service Desk','IT Asset Management','Monitoring and Event Management','Service Configuration Management'],3,'Service Configuration Management|Verwaltet die CMDB mit aktuellen Informationen zu allen CIs und ihren Beziehungen.');
+
+// ---- 116-123 Schwerpunkt Vier Dimensionen
+Q('W:Vier Dimensionen','Eine Organisation stellt fest, dass ihre Datenbank veraltet ist und keine aktuellen Kundendaten liefert. Welche der vier Dimensionen ist HAUPTSÄCHLICH betroffen?',['Organisationen und Menschen','Informationen und Technologie','Partner und Lieferanten','Wertströme und Prozesse'],1,'Informationen und Technologie|Datenbanken, Informationsqualität und Technologieentscheidungen.');
+Q('W:Vier Dimensionen','Welche der vier Dimensionen beschreibt, WIE eine Organisation ihre Aktivitäten koordiniert, um Wert zu schaffen?',['Organisationen und Menschen','Informationen und Technologie','Partner und Lieferanten','Wertströme und Prozesse'],3,'Wertströme und Prozesse|Schritte und Aktivitäten zur Lieferung von Produkten und Services.');
+Q('W:Vier Dimensionen','Ein Unternehmen nutzt einen externen Anbieter für seine Cloud-Infrastruktur. Dieser Anbieter liefert nicht die vereinbarte Verfügbarkeit. Welche Dimension muss HAUPTSÄCHLICH adressiert werden?',['Organisationen und Menschen','Informationen und Technologie','Partner und Lieferanten','Wertströme und Prozesse'],2,'Partner und Lieferanten|Externe Anbieter, ihre Leistung und die Vertragsbeziehungen.');
+Q('W:Vier Dimensionen','Was beschreibt die Dimension Informationen und Technologie in ITIL 4?',['Rollen, Verantwortlichkeiten und Kommunikationswege','Informationen, Wissen, Technologien und Beziehungen zwischen diesen','Externe Partner, Lieferanten und deren Verträge','Aktivitäten und Wertströme zur Servicelieferung'],1,'Informationen und Technologie|Alle Informationen und das Wissen für die Servicelieferung sowie die eingesetzten Technologien.');
+Q('W:Vier Dimensionen','Welche externe Kraft beeinflusst ALLE vier Dimensionen des Service Managements gleichermaßen?',['Das Change Advisory Board','PESTLE-Faktoren (politisch, wirtschaftlich, sozial, technologisch, rechtlich, umweltbezogen)','Die Service Level Agreements','Das Continual Improvement Register'],1,'PESTLE-Faktoren|Externe Faktoren wirken auf alle vier Dimensionen.');
+Q('W:Vier Dimensionen','Ein Service-Desk-Team hat unklare Rollenverteilungen und schlechte interne Kommunikation. Welche Dimension muss verbessert werden?',['Organisationen und Menschen','Informationen und Technologie','Partner und Lieferanten','Wertströme und Prozesse'],0,'Organisationen und Menschen|Rollen, Verantwortlichkeiten, Teamstruktur und Kommunikation.');
+Q('W:Vier Dimensionen','Was ist KEINE der vier Dimensionen des Service Managements?',['Organisationen und Menschen','Informationen und Technologie','Continual Improvement','Partner und Lieferanten'],2,'Continual Improvement ist keine Dimension|Es ist eine Komponente des SVS. Die vierte Dimension fehlt hier: Wertströme und Prozesse.');
+Q('W:Vier Dimensionen','Warum müssen bei der Gestaltung eines neuen Services ALLE vier Dimensionen berücksichtigt werden?',['Weil es eine gesetzliche Anforderung ist','Weil ein Ungleichgewicht zwischen den Dimensionen zu ineffektiven Services führen kann','Weil das Change Advisory Board dies vorschreibt','Weil SLAs alle vier Dimensionen abdecken müssen'],1,'Gleichgewicht|Werden Dimensionen vernachlässigt, entstehen Lücken und unzuverlässige Services.');
+
+// ---- 124-155 Schwerpunkt Practices
+Q('W:Practices','Was ist der HAUPTZWECK von Change Enablement?',['Alle Änderungen so schnell wie möglich umzusetzen','Risiken zu maximieren und Wert zu schaffen','Risiken zu minimieren und erfolgreiche Änderungen sicherzustellen','Nur Notfall-Änderungen zu genehmigen'],2,'Change Enablement|Risiken minimieren und Änderungen mit minimaler Betriebsunterbrechung umsetzen.');
+Q('W:Practices','Welche Practice ist verantwortlich für die Bereitstellung und den Support von Services?',['Change Enablement','Service Desk','Deliver and Support','Problem Management'],1,'Service Desk|Single Point of Contact und erste Bearbeitung von Incidents und Service Requests. („Deliver and Support“ ist eine Value-Chain-Aktivität, keine Practice.)');
+Q('W:Practices','Ein Unternehmen möchte sicherstellen, dass neue Software-Releases stabil und getestet in Produktion gehen. Welche Practice ist HAUPTSÄCHLICH verantwortlich?',['Change Enablement','Deployment Management','Release Management','IT Asset Management'],2,'Release Management|Macht neue und geänderte Services/Features für den Einsatz verfügbar – getestet, dokumentiert, freigegeben.');
+Q('W:Practices','Was unterscheidet Deployment Management von Release Management?',['Es gibt keinen Unterschied','Deployment Management bewegt Komponenten in Produktionsumgebungen; Release Management macht Services für den Einsatz verfügbar','Release Management ist technischer als Deployment Management','Deployment Management gilt nur für Hardware'],1,'Deployment vs. Release|Deployment = Komponenten in die Produktion bringen. Release = Services/Features verfügbar machen.');
+Q('W:Practices','Welche Practice hat den Zweck, die Verfügbarkeit, Leistung und Sicherheit eines Systems zu erhalten?',['Monitoring and Event Management','Infrastructure and Platform Management','Service Configuration Management','IT Asset Management'],1,'Infrastructure and Platform Management|Überwacht und verwaltet Infrastruktur und Plattformen.');
+Q('W:Practices','Was ist der Zweck von Monitoring and Event Management?',['Incidents schnellstmöglich zu lösen','Services und CIs systematisch zu beobachten und ausgewählte Ereignisse zu erfassen, zu klassifizieren und zu eskalieren','Alle Änderungen an der IT-Infrastruktur zu genehmigen','Probleme und deren Ursachen zu identifizieren'],1,'Monitoring and Event Management|Systematisch beobachten, Events erfassen, klassifizieren, eskalieren – Basis für proaktives Service Management.');
+Q('W:Practices','Ein Techniker bemerkt eine ungewöhnliche CPU-Last auf einem Server, bevor es zu einem Ausfall kommt. Durch welche Practice wurde dies ermöglicht?',['Incident Management','Problem Management','Monitoring and Event Management','Service Desk'],2,'Monitoring and Event Management|Proaktives Erkennen von Anomalien vor einem Ausfall.');
+Q('W:Practices','Was ist der Unterschied zwischen Incident Management und Problem Management?',['Es gibt keinen Unterschied','Incident Management stellt den Betrieb schnell wieder her; Problem Management beseitigt die Ursachen dauerhaft','Problem Management ist schneller als Incident Management','Incident Management behandelt nur Hardware-Probleme'],1,'Incident vs. Problem Management|Incident = schnelle Wiederherstellung. Problem = Ursachen dauerhaft beseitigen.');
+Q('W:Practices','Was ist der Zweck von Service Request Management?',['Ungeplante Serviceunterbrechungen zu beheben','Vordefinierte, benutzerinitiierte Serviceanfragen zu unterstützen','Änderungen an der IT-Infrastruktur zu genehmigen','Die Ursachen von Incidents zu analysieren'],1,'Service Request Management|Vordefinierte, vom Anwender initiierte Anfragen (Informationen, Standardbestellungen) bearbeiten.');
+Q('W:Practices','Welche Practice stellt sicher, dass Supplier-Verträge die Geschäftsziele der Organisation unterstützen?',['IT Asset Management','Relationship Management','Supplier Management','Service Level Management'],2,'Supplier Management|Stellt sicher, dass Lieferanten und ihre Leistungen die Geschäftsziele unterstützen.');
+Q('W:Practices','Ein Unternehmen möchte sicherstellen, dass alle Lieferanten verlässlich sind und die vereinbarten Leistungen erbringen. Welche Practice ist zuständig?',['Relationship Management','Change Enablement','Supplier Management','IT Asset Management'],2,'Supplier Management|Verwaltet Lieferantenbeziehungen und bewertet deren Leistung.');
+Q('W:Practices','Was ist der Hauptunterschied zwischen Relationship Management und Supplier Management?',['Es gibt keinen Unterschied','Relationship Management fokussiert auf strategische Stakeholder-Beziehungen; Supplier Management auf Lieferantenverträge und -leistungen','Supplier Management ist strategischer','Relationship Management gilt nur für interne Teams'],1,'Relationship vs. Supplier Management|Alle Stakeholder (strategisch) vs. externe Lieferanten (Verträge, Leistung).');
+Q('W:Practices','Welche Practice hat den Zweck, die Auswirkungen von Incidents zu minimieren und den normalen Servicebetrieb schnellstmöglich wiederherzustellen?',['Problem Management','Service Desk','Incident Management','Change Enablement'],2,'Incident Management|Negative Auswirkungen minimieren durch schnellstmögliche Wiederherstellung des normalen Servicebetriebs.');
+Q('W:Practices','Welche Practice plant und managt den vollständigen Lebenszyklus aller IT-Assets?',['Service Configuration Management','IT Asset Management','Monitoring and Event Management','Infrastructure and Platform Management'],1,'IT Asset Management|Von der Beschaffung bis zur Entsorgung: Wert maximieren, Kosten kontrollieren, Risiken managen.');
+Q('W:Practices','Was ist der Zweck von Service Configuration Management?',['Alle Changes zu genehmigen','Genaue und zuverlässige Informationen über die Konfiguration von Services und CIs sowie deren Beziehungen bereitzustellen','Incidents zu erfassen und zu lösen','Den Lebenszyklus von IT-Assets zu managen'],1,'Service Configuration Management|Genaue Informationen zu Services, CIs und Beziehungen – gespeichert in der CMDB.');
+Q('W:Practices','Ein Administrator ändert die IP-Adresse eines Servers, ohne dies zu dokumentieren. Welche Practice wurde verletzt?',['Incident Management','Change Enablement','Service Configuration Management','Problem Management'],2,'Service Configuration Management|Jede Änderung an CIs muss in der CMDB dokumentiert werden.');
+Q('W:Practices','Welche Practice ist dafür verantwortlich, dass die Organisation ihre Serviceziele mit Kunden vereinbart und deren Einhaltung überwacht?',['Supplier Management','Relationship Management','Monitoring and Event Management','Service Level Management'],3,'Service Level Management|Vereinbart, überwacht und berichtet Service Levels.');
+Q('W:Practices','Was ist KEIN typischer Inhalt eines Service Level Agreements (SLA)?',['Verfügbarkeitsziele','Reaktionszeiten bei Incidents','Die Gehälter der Service-Desk-Mitarbeiter','Eskalationswege'],2,'Kein SLA-Inhalt: Gehälter|Ein SLA enthält messbare Serviceziele, keine internen HR-Informationen.');
+Q('W:Practices','Welche Practice stellt sicher, dass Services bei Katastrophen weiter verfügbar sind oder schnell wiederhergestellt werden?',['Incident Management','Problem Management','Service Continuity Management','IT Asset Management'],2,'Service Continuity Management|Managt Katastrophenrisiken und sichert minimale Service Levels auch in Krisen.');
+Q('W:Practices','Was ist der Unterschied zwischen Service Continuity Management und Incident Management?',['Es gibt keinen Unterschied','Service Continuity Management plant für Katastrophen/große Ausfälle; Incident Management behandelt ungeplante Alltagsunterbrechungen','Incident Management ist strategischer','Service Continuity Management gilt nur für Hardware'],1,'Continuity vs. Incident|Katastrophe (Brand, Totalausfall) vs. tägliche Unterbrechung.');
+Q('W:Practices','Welche Practice hat als Hauptziel, die Wahrscheinlichkeit und den Impact von Incidents durch Ursachenanalyse zu reduzieren?',['Incident Management','Service Desk','Problem Management','Change Enablement'],2,'Problem Management|Häufigkeit und Auswirkung senken durch Beseitigung der Ursachen – nicht nur Symptombehandlung.');
+Q('W:Practices','In welchem Dokument werden Problems und Known Errors verwaltet?',['Im Incident Register','Im Change Schedule','Im Problem Register und in der Known Error Database (KEDB)','Im Service Catalogue'],2,'Problem Register und KEDB|Problems im Problem Register, Known Errors (Ursache + Workaround) in der KEDB.');
+Q('W:Practices','Was ist eine Availability Management Practice?',['Sie managt Incidents bei Ausfällen','Sie stellt sicher, dass Services die vereinbarten Verfügbarkeitsziele erreichen','Sie plant Notfallwiederherstellung bei Katastrophen','Sie genehmigt alle Änderungen'],1,'Availability Management|Services erreichen die vereinbarten Verfügbarkeitsziele und erfüllen den Geschäftsbedarf.');
+Q('W:Practices','Was ist der Zweck von Capacity and Performance Management?',['Alle Changes zu planen','Sicherzustellen, dass Services die aktuelle und zukünftige Nachfrage hinsichtlich Kapazität und Leistung erfüllen','Incidents bei Leistungsabfall zu lösen','Lieferanten für Kapazitätserweiterungen zu managen'],1,'Capacity and Performance Management|Erforderliche Kapazität und Leistung bei normaler und steigender Nachfrage.');
+Q('W:Practices','Welche Practice ist verantwortlich für die Sicherheit von Informationen in der Organisation?',['IT Asset Management','Service Configuration Management','Information Security Management','Monitoring and Event Management'],2,'Information Security Management|Schützt Informationen nach der CIA-Triade.');
+Q('W:Practices','Was sind die drei Grundsätze des Information Security Managements?',['Planung, Umsetzung, Kontrolle','Vertraulichkeit, Integrität und Verfügbarkeit (CIA)','Erkennen, Reagieren, Wiederherstellen','Vorbeugen, Erkennen, Eskalieren'],1,'CIA-Triade|Confidentiality (Vertraulichkeit), Integrity (Integrität), Availability (Verfügbarkeit).');
+Q('W:Practices','Welche Practice stellt sicher, dass Mitarbeiter die Fähigkeiten und das Wissen haben, um ihre Aufgaben zu erfüllen?',['Organizational Change Management','Workforce and Talent Management','Knowledge Management','Service Desk'],1,'Workforce and Talent Management|Richtige Mitarbeiter mit den richtigen Fähigkeiten – Rekrutierung, Entwicklung, Leistungsmanagement.');
+Q('W:Practices','Was ist der Zweck von Knowledge Management in ITIL 4?',['Alle Incidents zu dokumentieren','Sicherzustellen, dass die Organisation über die richtigen Informationen und das richtige Wissen verfügt, um Wert zu schaffen','Alle Changes zu dokumentieren','Den Service-Katalog zu verwalten'],1,'Knowledge Management|Informationen und Wissen zur richtigen Zeit, am richtigen Ort, im richtigen Format.');
+Q('W:Practices','Ein Unternehmen hat eine Wissensdatenbank aufgebaut, in der häufige Lösungen für Incidents dokumentiert sind. Welche Practice wird dadurch unterstützt?',['Change Enablement','Knowledge Management','IT Asset Management','Supplier Management'],1,'Knowledge Management|Wissensdatenbank mit Lösungen – unterstützt auch Problem Management und Service Desk.');
+Q('W:Practices','Was ist der Zweck von Organizational Change Management?',['IT-Systeme zu aktualisieren','Sicherzustellen, dass Änderungen in der Organisation effektiv umgesetzt und von den betroffenen Menschen unterstützt werden','Lieferantenverträge zu ändern','Incidents bei Systemumstellungen zu managen'],1,'Organizational Change Management|Menschliche Seite von Veränderungen: verstehen, mittragen, umsetzen.');
+Q('W:Practices','Was ist der Zweck von Service Catalogue Management?',['Alle Incidents zu katalogisieren','Einen einzigen Informationspunkt für alle verfügbaren Services bereitzustellen','Lieferanten zu bewerten','Changes zu dokumentieren'],1,'Service Catalogue Management|Ein konsistenter Informationspunkt zu allen Services und Angeboten.');
+Q('W:Practices','Welche Practice stellt sicher, dass neue oder geänderte Services die Erwartungen der Stakeholder erfüllen?',['Change Enablement','Service Level Management','Service Design','Service Validation and Testing'],3,'Service Validation and Testing|Neue/geänderte Services erfüllen die definierten Anforderungen und Erwartungen der Stakeholder.');
+
+// ---- 156-185 PeopleCert-Stil
+Q('L:Practices','Identifizieren Sie das fehlende Wort: Der Zweck von Incident Management ist es, die negativen Auswirkungen von Incidents zu minimieren, indem der normale [?] so schnell wie möglich wiederhergestellt wird.',['Servicekatalog','Servicebetrieb','Servicelevel','Servicevertrag'],1,'Servicebetrieb|Der genaue ITIL-4-Wortlaut: den normalen Servicebetrieb so schnell wie möglich wiederherstellen.');
+Q('L:Practices','Welche Aussage über den Service Desk ist RICHTIG?',['Der Service Desk sollte immer eine technische Lösung für Incidents liefern','Der Service Desk ist der Single Point of Contact zwischen dem Service Provider und allen seinen Nutzern','Der Service Desk ist verantwortlich für die Genehmigung aller Changes','Der Service Desk ersetzt Problem Management bei wiederkehrenden Incidents'],1,'Single Point of Contact|Offizielle ITIL-4-Definition des Service Desk.');
+Q('L:Practices','Welche ist die BESTE Beschreibung eines Standard Change?',['Ein Change, der vorab genehmigt wurde, ein geringes Risiko hat und gut verstanden ist','Ein Change, der immer durch das Change Advisory Board genehmigt werden muss','Ein Change, der nur bei Notfällen angewendet wird','Ein Change, der eine vollständige Risikoanalyse erfordert'],0,'Standard Change|Vorab genehmigt, geringes Risiko, gut verstanden und dokumentiert.');
+Q('L:Practices','Ein Service-Desk-Mitarbeiter erhält einen Anruf. Der Nutzer kann nicht auf seine E-Mails zugreifen. Was sollte der Mitarbeiter ALS ERSTES tun?',['Sofort einen Problem Record erstellen','Den Incident erfassen und kategorisieren','Einen Emergency Change beantragen','Den Nutzer an das technische Team weiterleiten'],1,'Erfassen und kategorisieren|Erster Schritt im Incident Management – danach Priorisierung, Diagnose, Lösung.');
+Q('L:Practices','Welche Aussage beschreibt am BESTEN den Zweck von Problem Management?',['Incidents so schnell wie möglich zu lösen','Die Wahrscheinlichkeit und Auswirkung von Incidents zu reduzieren durch Identifizierung tatsächlicher und potenzieller Ursachen','Alle Änderungen an der IT-Infrastruktur zu genehmigen','Sicherzustellen, dass Services die vereinbarten Verfügbarkeitsziele erreichen'],1,'Zweck Problem Management|Ursachen identifizieren sowie Workarounds und Known Errors managen.');
+Q('L:Vier Dimensionen','Welche Aussage über die vier Dimensionen des Service Managements ist RICHTIG?',['Die vier Dimensionen sind nur für große Organisationen relevant','Alle vier Dimensionen müssen berücksichtigt werden, um ein ausgewogenes und effektives Service Management zu gewährleisten','Die Dimension Informationen und Technologie ist wichtiger als die anderen','Die vier Dimensionen ersetzen die Grundprinzipien'],1,'Alle vier Dimensionen|Gleichermaßen berücksichtigen – Vernachlässigung führt zu Ungleichgewicht.');
+Q('L:Vier Dimensionen','Identifizieren Sie das fehlende Wort: Die vier Dimensionen des Service Managements repräsentieren [?], die für ein effektives und effizientes Service Management relevant und komplementär sind.',['Prozesse','Perspektiven','Prinzipien','Praktiken'],1,'Perspektiven|Vier komplementäre Perspektiven – prüfungsrelevanter Begriff.');
+Q('L:Vier Dimensionen','Eine Organisation hat exzellente Prozesse und Technologie, aber die Mitarbeiter wissen nicht, wie sie diese nutzen sollen. Welche Dimension wurde HAUPTSÄCHLICH vernachlässigt?',['Informationen und Technologie','Wertströme und Prozesse','Partner und Lieferanten','Organisationen und Menschen'],3,'Organisationen und Menschen|Fehlende Schulung, unklare Rollen, mangelndes Wissen.');
+Q('L:Vier Dimensionen','Welche Aussage beschreibt am BESTEN die Dimension Wertströme und Prozesse?',['Sie beschreibt die Technologien, die zur Servicelieferung eingesetzt werden','Sie definiert, wie die verschiedenen Teile der Organisation integriert und koordiniert zusammenarbeiten, um Wert zu schaffen','Sie beschreibt die Beziehungen zu externen Lieferanten','Sie legt Governance und Managementstrukturen fest'],1,'Wertströme und Prozesse|Integrierte, koordinierte Zusammenarbeit zur Wertschöpfung.');
+Q('L:Grundprinzipien','Identifizieren Sie das fehlende Wort: Die Grundprinzipien von ITIL 4 sind [?], die eine Organisation in allen Umständen leiten können.',['Vorschriften','Empfehlungen','Gesetze','Prozesse'],1,'Empfehlungen|Universelle Empfehlungen – keine Vorschriften oder Gesetze.');
+Q('L:Grundprinzipien','Welche Aussage über Grundprinzipien ist RICHTIG?',['Grundprinzipien geben vor, wie ITIL implementiert werden muss','Grundprinzipien sind universelle Empfehlungen, die in allen Situationen angewendet werden können','Organisationen müssen alle sieben Grundprinzipien immer gleichzeitig anwenden','Grundprinzipien ersetzen die Practices'],1,'Universelle Empfehlungen|Nicht alle müssen immer angewendet werden – die Organisation wählt passende aus.');
+Q('L:Grundprinzipien','Welches Grundprinzip wird am BESTEN durch die folgende Aussage beschrieben: „Bevor etwas als unzureichend erklärt oder ein neuer Ansatz gestartet wird, sollte man beobachten, was verfügbar ist“?',[GP[0],GP[2],GP[1],GP[5]],2,'Dort beginnen, wo man steht|Erst beobachten und bewerten, was bereits vorhanden ist.');
+Q('L:Grundprinzipien','Ein IT-Team arbeitet an einer Verbesserung. Sie liefern kleine Ergebnisse und holen regelmäßig Rückmeldungen ein, bevor sie weitermachen. Welches Grundprinzip wenden sie an?',[GP[1],GP[3],GP[2],GP[5]],2,'Iterative Weiterentwicklung mit Feedback|Kleine Schritte, liefern, Feedback, anpassen.');
+Q('L:Grundprinzipien','Welches Grundprinzip wird am BESTEN durch diese Aussage beschrieben: „Eliminiere alles, was keinen Mehrwert schafft oder die Ergebnisse nicht verbessert“?',[GP[0],GP[1],GP[3],GP[5]],3,'Auf Einfachheit und Praktikabilität achten|Unnötige Komplexität eliminieren, nur Wertschaffendes behalten.');
+Q('L:SVS','Welche Aussage beschreibt am BESTEN den Zweck des ITIL Service Value Systems?',['Es beschreibt nur die technischen Prozesse der IT','Es stellt sicher, dass alle Beteiligten der Organisation gemeinsam kontinuierlich Mehrwert schaffen','Es ersetzt alle bestehenden IT-Prozesse durch neue','Es ist ein Werkzeug zur Kostenkontrolle'],1,'Zweck des SVS|Kontinuierlich Mehrwert für Organisation, Stakeholder und Kunden – durch das Zusammenspiel aller Komponenten.');
+Q('L:SVS','Identifizieren Sie die fehlende Komponente: Das ITIL Service Value System besteht aus Guiding Principles, Governance, Service Value Chain, Practices und [?].',['Service Level Agreements','Continual Improvement','Die vier Dimensionen','Change Advisory Board'],1,'Continual Improvement|Die fünfte SVS-Komponente. Die vier Dimensionen gehören nicht direkt zum SVS.');
+Q('L:SVS','Was ist der Zweck der Service Value Chain?',['Einen einzigen Prozess für alle IT-Aktivitäten bereitzustellen','Ein Betriebsmodell bereitzustellen, das die wesentlichen Aktivitäten zur Reaktion auf Nachfrage und Schaffung von Mehrwert umfasst','Alle Changes zu genehmigen','Lieferantenverträge zu verwalten'],1,'Zweck der Service Value Chain|Betriebsmodell mit den wesentlichen Aktivitäten, um auf Nachfrage zu reagieren und Wert zu schaffen.');
+Q('L:SVS','Welche Aussage über die Aktivitäten der Service Value Chain ist RICHTIG?',['Jede Aktivität muss in einer festen Reihenfolge ausgeführt werden','Die Aktivitäten können in verschiedenen Kombinationen ausgeführt werden, um mehrere Arten von Wertströmen zu ermöglichen','Jede Aktivität ist einem bestimmten Team zugeordnet','Es gibt nur einen einzigen Wertstrom für alle Services'],1,'Flexible Kombination|Keine feste Reihenfolge – verschiedene Wertströme nutzen verschiedene Kombinationen.');
+Q('L:Grundkonzepte','Welche Aussage beschreibt am BESTEN den Unterschied zwischen einem Outcome und einem Output?',['Outcome und Output bedeuten dasselbe','Ein Output ist ein greifbares Lieferobjekt einer Aktivität; ein Outcome ist das Ergebnis für einen Stakeholder, das durch Outputs ermöglicht wird','Ein Outcome ist immer messbar; ein Output nicht','Outputs sind intern; Outcomes sind extern'],1,'Output vs. Outcome|Output = Lieferobjekt, Outcome = Wirkung beim Stakeholder.');
+Q('L:Grundkonzepte','Identifizieren Sie das fehlende Wort: Ein Service ist ein Mittel zur gemeinsamen Wertschöpfung, indem er Kunden das Erreichen [?] Ergebnisse erleichtert, ohne dass Kunden bestimmte Kosten und Risiken managen müssen.',['messbarer','angestrebter','garantierter','vorgeschriebener'],1,'Angestrebter Ergebnisse|Genauer ITIL-4-Wortlaut – nicht garantierter oder messbarer.');
+Q('L:Grundkonzepte','Welche Aussage beschreibt am BESTEN Utility eines Services?',['Die Zuverlässigkeit des Services bei der Nutzung','Die Funktionalität des Services, die einem bestimmten Bedarf entspricht','Die Kosten des Services für den Kunden','Die Verfügbarkeit des Services'],1,'Utility|Was der Service tut und ob er für seinen Zweck geeignet ist (fit for purpose).');
+Q('L:Grundkonzepte','Welche ZWEI Faktoren schaffen zusammen den Wert eines Services?',['Kosten und Risiko','Utility und Warranty','Inputs und Outputs','Incidents und Changes'],1,'Utility und Warranty|Wert entsteht nur, wenn BEIDE erfüllt sind: fit for purpose und fit for use.');
+Q('L:Practices','Welche Aussage über Known Errors ist RICHTIG?',['Ein Known Error bedeutet, dass das Problem gelöst ist','Ein Known Error ist ein Problem mit dokumentierter Ursache und Workaround, aber noch ohne dauerhafte Lösung','Known Errors werden automatisch zu Incidents','Known Errors müssen sofort durch einen Emergency Change behoben werden'],1,'Known Error|Wird in der Known Error Database (KEDB) erfasst.');
+Q('L:Practices','Welche Aussage beschreibt am BESTEN den Unterschied zwischen IT Asset Management und Service Configuration Management?',['Es gibt keinen Unterschied','IT Asset Management fokussiert auf den finanziellen Wert und Lebenszyklus von Assets; Service Configuration Management auf die Beziehungen zwischen CIs und deren Einfluss auf Services','Service Configuration Management ist umfassender und ersetzt IT Asset Management','IT Asset Management gilt nur für Hardware'],1,'ITAM vs. SCM|ITAM: Wert, Kosten, Risiko, Lebenszyklus. SCM: CIs und Beziehungen in der CMDB.');
+Q('L:Practices','Ein Unternehmen plant die Einführung eines neuen ERP-Systems. Die Schulung der Mitarbeiter ist Teil des Projekts. Welche Practice ist HAUPTSÄCHLICH für den reibungslosen Übergang in den Betrieb verantwortlich?',['Change Enablement','Release Management','Organizational Change Management','Service Desk'],2,'Organizational Change Management|Schulung und Gewinnen der Mitarbeiter – nicht nur technisches Change Enablement.');
+Q('L:Practices','Welche Aussage über Continual Improvement ist RICHTIG?',['Continual Improvement ist nur die Aufgabe des IT-Managements','Continual Improvement ist eine Verantwortung aller Mitarbeiter und Ebenen der Organisation','Continual Improvement findet nur am Ende eines Projekts statt','Continual Improvement erfordert immer große Investitionen'],1,'Alle Ebenen|Von der Strategie bis zum operativen Betrieb – keine reine Managementaufgabe.');
+Q('L:SVS','Was ist Governance im Kontext des ITIL Service Value Systems?',['Ein weiterer Name für Change Management','Die Mittel, durch die eine Organisation geleitet und kontrolliert wird','Ein Synonym für IT Asset Management','Die Gesamtheit aller ITIL Practices'],1,'Governance|Das System, durch das eine Organisation geleitet und kontrolliert wird; stellt Übereinstimmung mit Zielen und Strategien sicher.');
+Q('L:Practices','Welche Aussage beschreibt am BESTEN die Beziehung zwischen Service Desk und anderen Practices?',['Der Service Desk arbeitet unabhängig von anderen Practices','Der Service Desk ist der Eintrittspunkt und koordiniert mit Incident Management, Problem Management und Change Enablement','Der Service Desk übernimmt alle Aufgaben anderer Practices','Der Service Desk ist nur für Service Requests zuständig'],1,'Service Desk als Eintrittspunkt|Eskaliert Incidents, liefert Inputs für Problem Management, informiert über Changes.');
+Q('L:Grundprinzipien','Welches Grundprinzip wird durch die folgende Aussage am BESTEN beschrieben: „Der Fokus sollte auf dem liegen, was wirklich Wert für den Kunden und die Stakeholder erzeugt“?',[GP[1],GP[2],GP[0],GP[3]],2,'Fokus auf den Mehrwert|Alles muss direkt oder indirekt zum Mehrwert für Kunden und Stakeholder beitragen.');
+Q('L:Practices','Eine Organisation möchte sicherstellen, dass ihre Services auch dann funktionieren, wenn wichtige Mitarbeiter krank oder im Urlaub sind. Welche Practice ist HAUPTSÄCHLICH relevant?',['Workforce and Talent Management','Knowledge Management','Service Continuity Management','Incident Management'],1,'Knowledge Management|Dokumentiertes Wissen verhindert, dass Services von einzelnen Personen abhängen.');
+/* Hörbuch-Kapitel. '|' = Pause/Satzgrenze */
+const hbChapters = [
+{id:'prinzipien',label:'Grundprinzipien',entries:[
+{t:'Fokus auf den Mehrwert',s:'Fokus auf den Mehrwert.|Alles, was eine Organisation tut, muss direkt oder indirekt zur Wertschöpfung beitragen.|Wert ist das, was der Konsument als wertvoll empfindet – nicht, was der Provider denkt.||Bevor eine Aktivität startet: Wie trägt das zum Mehrwert bei?|Aktivitäten ohne Mehrwert hinterfragen und eliminieren.'},
+{t:'Dort beginnen, wo man steht',s:'Dort beginnen, wo man steht.||Bewerte den Ist-Zustand objektiv, bevor du etwas Neues aufbaust.|Vorhandene Prozesse, Tools und Fähigkeiten analysieren und wenn möglich wiederverwenden.||Auch bestehende Metriken prüfen, bevor neue KPIs definiert werden.|Beobachte, was verfügbar ist – erkläre es nicht vorschnell als unzureichend.'},
+{t:'Iterative Weiterentwicklung mit Feedback',s:'Iterative Weiterentwicklung mit Feedback.||Arbeit in kleine Einheiten aufteilen, liefern und Feedback einbeziehen.|Kein großer Wurf auf einmal.||Das reduziert Risiko und ermöglicht schnelle Kurskorrektur.|Wichtiger, etwas zu tun, als viel Zeit auf die Analyse von Optionen zu verwenden.'},
+{t:'Zusammenarbeiten und Transparenz fördern',s:'Zusammenarbeiten und Transparenz fördern.||Silos durchbrechen. Alle relevanten Beteiligten einbeziehen, zur richtigen Zeit, mit der richtigen Information.||Den Ablauf von Work in Progress verstehen, Engpässe identifizieren, Verschwendung aufdecken.||Stakeholder inklusive Kunden einbeziehen – ihr Wissen führt zu besseren Lösungen.'},
+{t:'Ganzheitlich denken und arbeiten',s:'Ganzheitlich denken und arbeiten.||Den gesamten Wertstrom im Blick behalten.|Keine isolierte Optimierung einzelner Teile – das kann andere Teile verschlechtern.|Alle vier Dimensionen immer berücksichtigen.'},
+{t:'Auf Einfachheit und Praktikabilität achten',s:'Auf Einfachheit und Praktikabilität achten.||Überanalyse vermeiden.|Mit dem Minimum starten, das brauchbaren Fortschritt erzielt.|Wenn eine Aktivität keinen Mehrwert schafft oder Ergebnisse nicht verbessert, weglassen.||Bestehende Reports bewerten, bevor neue hinzukommen.'},
+{t:'Optimieren und automatisieren',s:'Optimieren und automatisieren.||Zuerst optimieren, dann automatisieren.|Das ist die richtige Reihenfolge.||Einen schlechten Prozess zu automatisieren erzeugt nur schneller schlechte Ergebnisse.|Ausgangspunkt für Optimierung ist das Verständnis von Vision und Zielen der Organisation.'},
+{t:'Grundprinzipien – Prüfungswissen',s:'Prüfungswissen Grundprinzipien.||Grundprinzipien sind universelle Empfehlungen.|Nicht alle müssen immer gleichzeitig angewendet werden.|Sie ersetzen keine Practices und gelten kontextunabhängig.'}]},
+{id:'konzepte',label:'Grundkonzepte',entries:[
+{t:'Service – Definition',s:'Service.||Ein Service ist ein Mittel zur gemeinsamen Wertschöpfung, indem Kunden angestrebte Ergebnisse erzielen können, ohne bestimmte Kosten und Risiken selbst managen zu müssen.||Merke: angestrebter Ergebnisse – nicht garantierter oder messbarer.'},
+{t:'Utility und Warranty',s:'Utility und Warranty. Beide zusammen erzeugen erst echten Wert.||Utility: Funktionalität des Services. Passt er zum Zweck? Fit for purpose.||Warranty: Zuverlässigkeit. Verfügbar, sicher, ausreichend Kapazität, kontinuierlich? Fit for use.||Ein Drucker, der druckt, aber ständig ausfällt, hat Utility, aber keine Warranty.'},
+{t:'Output und Outcome',s:'Output versus Outcome.||Output ist das direkte Lieferobjekt einer Aktivität. Beispiel: ein monatlicher Verfügbarkeitsbericht.||Outcome ist die Wirkung für den Stakeholder. Beispiel: bessere Entscheidungen durch diesen Bericht.||Output ist, was geliefert wird. Outcome ist, was dadurch ermöglicht wird.'},
+{t:'Wert – Value',s:'Wert in ITIL 4 ist subjektiv.||Er wird von den Stakeholdern wahrgenommen und entsteht durch Zusammenarbeit zwischen Provider und Konsument.||Ko-Kreation von Wert ist ein Kernprinzip.'},
+{t:'Produkt vs. Service',s:'Produkt versus Service.||Ein Produkt ist eine Konfiguration von Ressourcen.||Ein Service ermöglicht Wertschöpfung für Kunden ohne bestimmte Kosten und Risiken.||Cloud-Speicher: Der Kunde muss sich nicht um Server, Updates oder Backups kümmern. Das ist ein Service.'},
+{t:'Wertstrom – Value Stream',s:'Ein Wertstrom ist eine Reihe von Schritten, die eine Organisation unternimmt, um ein wertvolles Produkt oder einen Service zu erstellen und zu liefern.'},
+{t:'Known Error – Prüfungsfalle',s:'Known Error. Das ist eine häufige Prüfungsfalle.||Ein Known Error ist ein Problem, das analysiert wurde, aber noch nicht gelöst ist.||Es gibt einen Workaround, aber noch keine dauerhafte Lösung. Erfasst in der Known Error Database.||Ist das Problem dauerhaft behoben, werden Known Error und Problem Record geschlossen.'},
+{t:'Incident vs. Problem',s:'Incident versus Problem.||Incident: ungeplante Unterbrechung oder Qualitätsminderung. Das Symptom.|Problem: Ursache oder potenzielle Ursache für einen oder mehrere Incidents. Das Warum.||Known Error: analysiertes Problem mit Workaround, aber ohne Dauerlösung.'}]},
+{id:'svs',label:'Service Value System',entries:[
+{t:'SVS – Fünf Komponenten',s:'Das Service Value System hat genau fünf Komponenten.||Erstens: Guiding Principles.|Zweitens: Governance.|Drittens: Service Value Chain.|Viertens: Practices.|Fünftens: Continual Improvement.||Die vier Dimensionen gehören nicht direkt zum SVS.'},
+{t:'Governance',s:'Governance im SVS.||Governance ist das System, durch das eine Organisation geleitet und kontrolliert wird.|Sie stellt sicher, dass alle Aktivitäten zu Zielen und Strategien passen.'},
+{t:'Service Value Chain – Sechs Aktivitäten',s:'Die Service Value Chain hat genau sechs Aktivitäten.||Plan.|Improve.|Engage.|Design and Transition.|Obtain und Build.|Deliver and Support.||Keine feste Reihenfolge – verschiedene Wertströme nutzen verschiedene Kombinationen.|Practices wandeln Inputs in Outputs um.'},
+{t:'Plan-Aktivität',s:'Die Plan-Aktivität kommuniziert den aktuellen Status aller vier Dimensionen des Service Management.||Sie liefert ein gemeinsames Verständnis von Vision und aktuellem Stand.'},
+{t:'Design and Transition',s:'Design and Transition.||Das Entwerfen und Einführen neuer Services und Prozesse – von der Konzeption bis zur Produktivsetzung.||Beispiel: einen neuen Laptop-Bestellprozess entwickeln und einführen.'},
+{t:'Continual Improvement Model',s:'Das Continual Improvement Model.||Strukturierte Methode für kontinuierliche Verbesserung auf allen Ebenen.||Die Schritte in der richtigen Reihenfolge:|Erstens: Was ist die Vision? Immer die erste Frage!|Zweitens: Wo stehen wir jetzt?|Drittens: Wo wollen wir hin?|Viertens: Wie kommen wir dorthin?|Fünftens: Maßnahmen ergreifen.|Sechstens: Haben wir es geschafft?|Siebtens: Wie halten wir den Schwung aufrecht?||Entscheidungen müssen datenbasiert sein.'},
+{t:'Zweck des SVS',s:'Der Zweck des Service Value Systems: Es stellt sicher, dass die Organisation kontinuierlich Mehrwert für sich und für ihre Stakeholder schafft, durch das Zusammenspiel aller Komponenten.'}]},
+{id:'dimensionen',label:'Vier Dimensionen',entries:[
+{t:'Übersicht – Vier Dimensionen',s:'Die vier Dimensionen des Service Management.||Erstens: Organisationen und Menschen.|Zweitens: Informationen und Technologie.|Drittens: Partner und Lieferanten.|Viertens: Wertströme und Prozesse.||Alle vier müssen berücksichtigt werden. Sie sind vier komplementäre Perspektiven.'},
+{t:'Organisationen und Menschen',s:'Organisationen und Menschen.||Struktur, Rollen, Verantwortlichkeiten, Governance, Kultur und Kommunikation.||Fehlende Kenntnisse der Mitarbeiter sind ein Thema dieser Dimension.'},
+{t:'Informationen und Technologie',s:'Informationen und Technologie.||Informationen, Wissen und Technologien, die für Service Management benötigt werden.||Dazu gehören Tools, Systeme und Datenbanken wie die CMDB.'},
+{t:'Partner und Lieferanten',s:'Partner und Lieferanten.||Alle externen Parteien der Servicelieferung sowie Verträge und Vereinbarungen.||Die Unternehmenskultur beeinflusst die Lieferantenstrategie.|Drittanbieter sollen in Verbesserungsaktivitäten eingebunden werden.'},
+{t:'Wertströme und Prozesse',s:'Wertströme und Prozesse.||Wie die Teile der Organisation integriert und koordiniert zusammenarbeiten, um Wert zu schaffen.'},
+{t:'PESTLE-Faktoren',s:'PESTLE. Externe Faktoren, die alle vier Dimensionen beeinflussen.||Politisch.|Wirtschaftlich.|Sozial.|Technologisch.|Rechtlich.|Umweltbezogen.||Sie liegen außerhalb der Kontrolle der Organisation.'}]},
+{id:'practices',label:'Practices',entries:[
+{t:'Incident Management',s:'Incident Management.||Ziel: schnellstmögliche Wiederherstellung des normalen Servicebetriebs.||Bei einem Major Incident: zuerst wiederherstellen, dann Ursache analysieren – das ist Problem Management.||Priorisierung nach Impact und Urgency.'},
+{t:'Problem Management',s:'Problem Management hat drei Phasen.||Eins: Problem Identification.|Zwei: Problem Control – Analyse und Workaround.|Drei: Error Control – Dauerlösung und Known Error Management.||Ziel: Wahrscheinlichkeit und Impact von Incidents reduzieren.'},
+{t:'Change Enablement',s:'Change Enablement.||Für jeden Change-Typ eine passende Autorisierungsebene.||Standard Change: vorautorisiert, risikoarm, standardisiert.|Normal Change: Genehmigung vor Implementierung.|Emergency Change: schnelle Behebung kritischer Vorfälle, beschleunigter, aber nicht ausgelassener Genehmigungsprozess.'},
+{t:'Service Desk',s:'Der Service Desk ist der Single Point of Contact für Anwender.||Er erfasst und managt Incidents und Service Requests.||Automatisierung übernimmt Routinefälle. Der Service Desk fokussiert sich auf komplexe Vorfälle, die Empathie erfordern.||Er liefert Muster als Input für Problem Management.'},
+{t:'Service Request Management',s:'Service Request Management.||Ein Service Request ist eine formale Anforderung für etwas Vorgesehenes.||Dazu zählen auch Feedback, Lob und Beschwerden.||Service Requests sind oft vorautorisierte Standard Changes.|Effizienz durch klar definierte Prozesse, Standardisierung und Automatisierung.'},
+{t:'Service Level Management',s:'Service Level Management.||Erfasst Service-Performance, vergleicht sie mit vereinbarten Zielen und erstellt Berichte.|Erkennt und eskaliert SLA-Verletzungen.||Kunden liefern Informationen für Messgrößen und unterstützen Gespräche über den Fortschritt.'},
+{t:'IT Asset Management',s:'IT Asset Management.||Wert von IT-Assets maximieren, Kosten kontrollieren, Risiken beherrschen.||Dazu gehört die Verwaltung von Software-Lizenzen.||Nicht verwechseln mit Service Configuration Management!'},
+{t:'Service Configuration Management',s:'Service Configuration Management.||Aktuelle und zuverlässige Informationen über Configuration Items und ihre Beziehungen – in der CMDB.||Unterschied zu IT Asset Management:|ITAM verwaltet Assets und deren Wert.|SCM verwaltet CIs und ihre Beziehungen.'},
+{t:'Relationship Management',s:'Relationship Management.||Aufbau und Pflege von Beziehungen zwischen Organisation und Stakeholdern auf strategischer und taktischer Ebene.||Kommunikation über geplante Änderungen an Kunden ist Kernaufgabe.'},
+{t:'Service Continuity Management',s:'Service Continuity Management.||Stellt sicher, dass Services auch bei Katastrophen verfügbar bleiben.||Dazu gehört die Initiierung einer Notfallwiederherstellung, Disaster Recovery.'},
+{t:'Monitoring and Event Management',s:'Monitoring and Event Management.||Systematisches Beobachten von Services und CIs, Erfassen und Auswerten ausgewählter Ereignisse.||Basis für proaktives Service Management.'},
+{t:'Supplier Management',s:'Supplier Management.||Verwaltet Beziehungen zu externen Lieferanten.||Die Unternehmenskultur beeinflusst die Lieferantenstrategie.|Verträge sind Ergebnis der Strategie, nicht Einflussfaktor.'},
+{t:'Continual Improvement',s:'Continual Improvement.||Verantwortung aller Mitarbeiter auf allen Ebenen.||Das Modell beginnt immer mit der Vision. Entscheidungen müssen datenbasiert sein.||Zeigen Daten nach drei Monaten keine Verbesserung: Messmethode und Ansatz kritisch überprüfen.'},
+{t:'Knowledge Management',s:'Knowledge Management.||Dokumentiertes Wissen in einer Wissensdatenbank sorgt dafür, dass Wissen nicht an einzelne Personen gebunden ist.'},
+{t:'Organizational Change Management',s:'Organizational Change Management.||Nicht verwechseln mit Change Enablement!||OCM ist für den menschlichen Aspekt zuständig: Schulung und Gewinnen der Mitarbeiter bei neuen Systemen.|Change Enablement ist für den technischen Änderungsprozess.'}]},
+{id:'tipps',label:'Prüfungstipps',weak:true,entries:[
+{t:'Frageformulierungen',s:'Achte auf die genaue Frageformulierung.||Zweck, Ziel und Definition verlangen unterschiedliche Antworten, auch wenn sie ähnlich klingen.|Lies jede Frage mindestens zweimal.'},
+{t:'HAUPTSÄCHLICH-Fragen',s:'Fragt die Frage, welche Practice HAUPTSÄCHLICH verantwortlich ist, geht es um die primäre Zuständigkeit.||SLA-Verletzungen erkennen und eskalieren ist hauptsächlich Service Level Management, auch wenn andere beteiligt sind.'},
+{t:'Häufige Verwechslungen',s:'Häufige Verwechslungen.||ITAM: Wert, Kosten, Lifecycle. SCM: CIs und Beziehungen in der CMDB.||Incident: Symptom. Problem: Ursache. Known Error: analysiert, mit Workaround, ohne Dauerlösung.||OCM: Menschen und Kultur. Change Enablement: technischer Änderungsprozess.'},
+{t:'SVS und Value Chain auswendig',s:'Fünf SVS-Komponenten: Guiding Principles, Governance, Service Value Chain, Practices, Continual Improvement.||Die vier Dimensionen sind nicht Teil des SVS.||Sechs Aktivitäten: Plan, Improve, Engage, Design and Transition, Obtain und Build, Deliver and Support.'},
+{t:'Utility und Warranty – beide nötig',s:'Wert entsteht nur, wenn beide erfüllt sind.||Utility allein reicht nicht: Der Service tut, was er soll, fällt aber ständig aus.|Warranty allein reicht nicht: Er läuft stabil, tut aber nicht, was der Kunde braucht.'}]}
+];
+// Fragen-Kategorie -> Kapitel
+function hbChapterFor(cat){
+  const t = cat.replace(/^(Szenario|Musterprüfung|Schwerpunkt|PeopleCert-Stil) – /,'');
+  if (/^Grundprinzipien/.test(t)) return 'prinzipien';
+  if (/^Grundkonzepte/.test(t)) return 'konzepte';
+  if (/^(Service Value|SVS)/.test(t)) return 'svs';
+  if (/^Vier Dimensionen/.test(t)) return 'dimensionen';
+  return 'practices';
+}
+function hbGetHint(cat){
+  const chId = hbChapterFor(cat), ch = hbChapters.find(c=>c.id===chId);
+  const topic = cat.replace(/^.* – /,'').toLowerCase();
+  let idx = ch.entries.findIndex(e=>e.t.toLowerCase().includes(topic));
+  if (idx<0) idx = 0;
+  return {chId, chLabel: ch.label, eIdx: idx, eTitle: ch.entries[idx].t};
+}
+/* Merkbilder als Inline-SVG (themefähig über CSS-Variablen) */
+const DG = (() => {
+  const esc = s => s.replace(/&/g,'&amp;');
+  const box = (x,y,w,h,lines,c='var(--accent)',fs=11) => {
+    lines = Array.isArray(lines) ? lines : [lines];
+    const ty = y + h/2 - (lines.length-1)*fs*0.6 + fs*0.35;
+    return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="9" fill="var(--surface2)" stroke="${c}" stroke-width="1.5"/>` +
+      lines.map((l,i)=>`<text x="${x+w/2}" y="${ty+i*fs*1.2}" text-anchor="middle" font-size="${fs}" fill="var(--text)">${esc(l)}</text>`).join('');
+  };
+  const txt = (x,y,s,c,fs=10,a='middle',w='normal') => `<text x="${x}" y="${y}" text-anchor="${a}" font-size="${fs}" fill="${c||'var(--dim)'}" font-weight="${w}">${esc(s)}</text>`;
+  const arrow = (x1,y1,x2,y2,c='var(--dim)') => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="1.5" marker-end="url(#ar)"/>`;
+  const wrap = (h,inner) => `<svg viewBox="0 0 320 ${h}" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,Segoe UI,sans-serif"><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--dim)"/></marker></defs>${inner}</svg>`;
+  const A='var(--accent)', O='var(--accent2)', G='var(--green)', Y='var(--yellow)', R='var(--red)';
+  return {
+    chain:{title:'Service Value Chain (6 Aktivitäten)', svg: wrap(190,
+      txt(160,14,'Chance / Nachfrage  →  Wert',O,11,'middle','bold') +
+      box(10,24,92,40,'Plan',A)+box(114,24,92,40,'Improve',A)+box(218,24,92,40,'Engage',A)+
+      box(10,84,92,48,['Design and','Transition'],O)+box(114,84,92,48,['Obtain /','Build'],O)+box(218,84,92,48,['Deliver and','Support'],O)+
+      arrow(56,66,56,82)+arrow(160,66,160,82)+arrow(264,66,264,82)+
+      txt(160,156,'Keine feste Reihenfolge – Kombination je Wertstrom',null,10)+
+      txt(160,174,'Practices wandeln Inputs in Outputs um',null,10))},
+    svs:{title:'Service Value System (5 Komponenten)', svg: wrap(200,
+      txt(160,14,'Chance / Nachfrage  →  SVS  →  Wert',O,11,'middle','bold') +
+      box(10,24,145,34,'Guiding Principles',A)+box(165,24,145,34,'Governance',A)+
+      box(10,68,300,40,'Service Value Chain',O)+
+      box(10,118,145,34,'Practices',A)+box(165,118,145,34,'Continual Improvement',A)+
+      txt(160,176,'Die 4 Dimensionen gehören NICHT zum SVS',R,10,'middle','bold'))},
+    dims:{title:'Die 4 Dimensionen + PESTLE', svg: wrap(200,
+      txt(160,13,'PESTLE: Politisch · Wirtschaftlich · Sozial · Technologisch · Rechtlich · Umwelt',Y,8.5)+
+      box(10,22,150,62,['Organisationen','& Menschen'],A)+box(165,22,145,62,['Information','& Technologie'],O)+
+      box(10,92,150,62,['Partner','& Lieferanten'],G)+box(165,92,145,62,['Wertströme','& Prozesse'],Y)+
+      txt(160,174,'Alle 4 = komplementäre Perspektiven – keine vernachlässigen',null,10)+
+      txt(160,190,'Governance/Kultur · CMDB/Tools · Verträge · Aktivitäten',null,9))},
+    prinz:{title:'Die 7 Grundprinzipien', svg: wrap(236,
+      [['Fokus auf den Mehrwert','Wert für Stakeholder'],['Dort beginnen, wo man steht','Ist-Zustand bewerten, Vorhandenes nutzen'],['Iterative Weiterentwicklung mit Feedback','Kleine Schritte, tun statt zerdenken'],['Zusammenarbeiten & Transparenz fördern','Silos weg, WIP/Engpässe sichtbar'],['Ganzheitlich denken und arbeiten','Gesamter Wertstrom, alle Dimensionen'],['Auf Einfachheit & Praktikabilität achten','Minimum, was Mehrwert bringt'],['Optimieren und automatisieren','Erst optimieren, dann automatisieren']]
+        .map((p,i)=>box(10,4+i*32,300,28,'',[A,O,G,Y,A,O,G][i])+txt(18,16+i*32,p[0],'var(--text)',10.5,'start','bold')+txt(18,27+i*32,p[1],null,9,'start')).join(''))},
+    uw:{title:'Utility + Warranty = Wert', svg: wrap(130,
+      box(10,16,120,52,['Utility','fit for purpose','Funktionalität'],A,10.5)+txt(147,46,'+','var(--text)',22)+
+      box(165,16,145,52,['Warranty','fit for use','verfügbar · sicher · Kapazität'],O,10)+
+      arrow(70,70,130,96)+arrow(238,70,190,96)+box(100,98,120,28,'WERT',G,12))},
+    ipk:{title:'Incident → Problem → Known Error', svg: wrap(170,
+      box(8,20,92,50,['Incident','Symptom','ungeplante Unterbr.'],R,9.5)+arrow(100,45,118,45)+
+      box(118,20,92,50,['Problem','Ursache','(Analyse)'],Y,9.5)+arrow(210,45,228,45)+
+      box(228,20,84,50,['Known Error','Ursache +','Workaround'],O,9.5)+
+      arrow(270,72,270,100)+box(200,102,112,34,['Dauerlösung','→ alles geschlossen'],G,9.5)+
+      txt(100,112,'Incident Mgmt: schnell wiederherstellen',null,9,'middle')+txt(100,126,'Problem Mgmt: Ursache beseitigen',null,9,'middle')+
+      txt(160,160,'Known Error steht in der KEDB',null,9.5))},
+    change:{title:'Change-Typen', svg: wrap(150,
+      box(8,14,96,70,['Standard','vorautorisiert','risikoarm','z. B. CSS-Fix'],G,9.5)+
+      box(112,14,96,70,['Normal','Bewertung +','Genehmigung','vorab'],A,9.5)+
+      box(216,14,96,70,['Emergency','kritisch, dringend','beschleunigt','z. B. Sicherheitslücke'],R,9)+
+      txt(160,108,'Für jeden Typ: passende Autorisierungsebene',null,10)+
+      txt(160,126,'Service Requests = meist Standard Changes',null,10))},
+    ci:{title:'Continual Improvement Model (7 Schritte)', svg: wrap(236,
+      ['1  Was ist die Vision?','2  Wo stehen wir jetzt?','3  Wo wollen wir hin?','4  Wie kommen wir dorthin?','5  Maßnahmen ergreifen','6  Haben wir es geschafft?','7  Wie halten wir den Schwung aufrecht?']
+        .map((s,i)=>box(10+i*6,4+i*32,300-i*6,28,'',[O,A,A,A,A,A,G][i])+txt(20+i*6,22+i*32,s,'var(--text)',11,'start',i===0?'bold':'normal')).join(''))},
+    outc:{title:'Input → Output → Outcome → Wert', svg: wrap(110,
+      box(4,20,56,40,'Input',A,10)+arrow(60,40,72,40)+box(72,20,64,40,['Aktivität','/ Practice'],A,9.5)+arrow(136,40,148,40)+
+      box(148,20,56,40,'Output',O,10)+arrow(204,40,216,40)+box(216,20,56,40,'Outcome',G,10)+
+      txt(176,78,'Output = Lieferobjekt',O,9.5)+txt(176,92,'Outcome = Wirkung beim Stakeholder',G,9.5)+box(274,24,42,32,'Wert',Y,10))},
+    desk:{title:'Wer bearbeitet was?', svg: wrap(176,
+      box(8,12,304,32,'Service Desk = Single Point of Contact',A,11)+
+      box(8,56,96,52,['Incident','Mgmt'],R,10)+box(112,56,96,52,['Service Request','Mgmt'],G,10)+box(216,56,96,52,['Problem','Mgmt'],Y,10)+
+      txt(56,124,'Betrieb wiederherstellen',null,8.5)+txt(160,124,'Anfragen, Feedback,',null,8.5)+txt(160,135,'Lob, Beschwerden',null,8.5)+txt(264,124,'Ursachen beseitigen',null,8.5)+
+      txt(160,160,'Change Enablement: Änderungen autorisieren',null,9.5))}
+  };
+})();
+function diagFor(q){
+  const s = (q.cat+' '+q.text+' '+q.opts.join(' ')).toLowerCase();
+  if (/utility|warranty/.test(s)) return 'uw';
+  if (/outcome|output/.test(s)) return 'outc';
+  if (/continual improvement model|vision|schwung|haben wir es geschafft/.test(s)) return 'ci';
+  if (/known error|incident|problem/.test(q.text.toLowerCase()) && !/change/.test(q.text.toLowerCase())) return 'ipk';
+  if (/change|emergency/.test(s)) return 'change';
+  if (/wertschöpfungskette|value chain|design and transition|obtain|deliver and support|plan, improve/.test(s)) return 'chain';
+  if (/service value system|svs|komponenten|governance/.test(s)) return 'svs';
+  if (/dimension|pestle/.test(s)) return 'dims';
+  if (/grundprinzip|prinzip/.test(s)) return 'prinz';
+  if (/service desk|service request/.test(s)) return 'desk';
+  return null;
+}
+/* ===== STATE ===== */
+const EXAM_Q = 40, EXAM_MIN = 60, PASS_PCT = 65;
+const defStats = () => ({total:0,correct:0,wrong:0,wrongIds:[],examHistory:[],marked:[],cat:{},streak:{last:'',count:0},best:0});
+let stats = Object.assign(defStats(), (()=>{try{return JSON.parse(localStorage.getItem('itil4_v2')||'{}')}catch(e){return {}}})());
+let curQ=[], curIdx=0, sesRight=0, sesWrong=0, curMode='all', answered=false, sesLog=[];
+let examAns=[], examFlag=[];
+let timerInterval=null, timerSec=0, examStart=null, fcShown=false;
+const $ = id => document.getElementById(id);
+const saveStats = () => { try{localStorage.setItem('itil4_v2', JSON.stringify(stats));}catch(e){} };
+const shuffle = a => { const r=[...a]; for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];} return r; };
+const today = () => new Date().toISOString().slice(0,10);
+const L = ['A','B','C','D'];
+
+/* ===== THEME ===== */
+function applyTheme(t){ document.body.classList.toggle('light', t==='light'); $('themeBtn').textContent = t==='light'?'🌙':'☀️'; }
+function toggleTheme(){ const t = document.body.classList.contains('light')?'dark':'light'; try{localStorage.setItem('itil4_theme',t);}catch(e){} applyTheme(t); }
+applyTheme((()=>{try{return localStorage.getItem('itil4_theme')||'dark'}catch(e){return 'dark'}})());
+
+/* ===== SCREENS ===== */
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(id).classList.add('active'); window.scrollTo(0,0);
+  if(id==='homeScreen') updateHome();
+}
+function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
+
+/* ===== HOME ===== */
+function touchStreak(){
+  const t=today(), s=stats.streak;
+  if(s.last===t) return;
+  const y=new Date(Date.now()-864e5).toISOString().slice(0,10);
+  s.count = (s.last===y) ? s.count+1 : 1; s.last=t; saveStats();
+}
+function updateHome(){
+  const t=stats.total, c=stats.correct;
+  $('stTotal').textContent=t; $('stRight').textContent=c; $('stWrong').textContent=stats.wrong;
+  const alive = stats.streak.last===today() || stats.streak.last===new Date(Date.now()-864e5).toISOString().slice(0,10);
+  $('stStreak').textContent = alive ? stats.streak.count : 0;
+  $('stBest').textContent = stats.best ? stats.best+'%' : '–';
+  const pct = t>0?Math.round(c/t*100):null, bar=$('readBar'), st=$('readStatus');
+  if(pct===null){bar.style.width='0%';$('readPct').textContent='–';st.className='rstatus s-red';st.textContent='Noch keine Daten';}
+  else{
+    bar.style.width=pct+'%';$('readPct').textContent=pct+'%';
+    if(pct>=75){st.className='rstatus s-green';st.textContent='Prüfungsbereit';}
+    else if(pct>=55){st.className='rstatus s-yellow';st.textContent='Fast bereit';}
+    else{st.className='rstatus s-red';st.textContent='Weiterlernen';}
+  }
+  $('markCount').textContent = stats.marked.length+' gemerkt';
+  $('wrongCount').textContent = stats.wrongIds.length+' offen';
+  buildCatList();
+}
+function buildCatList(){
+  const cats=[...new Set(questions.map(q=>q.cat))], box=$('catList'); box.innerHTML='';
+  cats.forEach(cat=>{
+    const n=questions.filter(q=>q.cat===cat).length, s=stats.cat[cat]||{r:0,t:0}, p=s.t?Math.round(s.r/s.t*100):null;
+    const col = p===null?'var(--border)':p>=75?'var(--green)':p>=55?'var(--yellow)':'var(--red)';
+    const b=document.createElement('button'); b.className='catbtn';
+    b.innerHTML=`<div style="flex:1"><div>${cat}</div><div class="minibar"><div style="width:${p||0}%;background:${col}"></div></div></div><span class="ccount">${p===null?'–':p+'%'} · ${n}</span>`;
+    b.onclick=()=>startMode('cat_'+cat); box.appendChild(b);
+  });
+}
+function toggleCats(){
+  const l=$('catList'), show=getComputedStyle(l).display==='none';
+  l.style.display=show?'flex':'none'; $('catArrow').textContent=show?'▾':'▸';
+}
+
+/* ===== MODES ===== */
+function startMode(mode){
+  stopTimer(); curMode=mode; answered=false; sesLog=[];
+  let pool=[...questions];
+  if(mode==='exam') pool=shuffle(questions).slice(0,EXAM_Q);
+  else if(mode==='wrong'){ pool=questions.filter(q=>stats.wrongIds.includes(q.id)); if(!pool.length){toast('Keine offenen Fehler 🎉');return;} }
+  else if(mode==='marked'){ pool=questions.filter(q=>stats.marked.includes(q.id)); if(!pool.length){toast('Noch nichts gemerkt – tippe ⭐ bei einer Frage');return;} }
+  else if(mode==='quick') pool=shuffle(questions).slice(0,10);
+  else if(mode==='cards') pool=shuffle(questions);
+  else if(mode.startsWith('cat_')) pool=questions.filter(q=>q.cat===mode.slice(4));
+  curQ=shuffle(pool).map(q=>{ const si=shuffle(q.opts.map((o,i)=>({t:o,o:i}))); return {...q,sopts:si.map(x=>x.t),correct:si.findIndex(x=>x.o===q.ans)}; });
+  curIdx=0; sesRight=0; sesWrong=0; examStart=Date.now();
+  if(mode==='exam'){ examAns=curQ.map(()=>-1); examFlag=curQ.map(()=>false); }
+  if(mode==='exam') startTimer();
+  touchStreak();
+  if(mode==='cards'){ showScreen('cardScreen'); renderCard(); } else { showScreen('quizScreen'); renderQ(); }
+}
+function restartMode(){ startMode(curMode); }
+
+/* ===== TIMER ===== */
+function startTimer(){
+  timerSec=EXAM_MIN*60; $('timerWrap').className='timer-wrap exam'; updTimer();
+  timerInterval=setInterval(()=>{ timerSec--; updTimer();
+    if(timerSec<=300) $('timerWrap').className='timer-wrap exam urgent';
+    if(timerSec<=0){ clearInterval(timerInterval); toast('Zeit abgelaufen'); examFinish(); } },1000);
+}
+function stopTimer(){ clearInterval(timerInterval); $('timerWrap').className='timer-wrap'; }
+function updTimer(){ const m=Math.floor(timerSec/60), s=timerSec%60; $('timerDisplay').textContent=m+':'+(s<10?'0':'')+s; }
+
+/* ===== QUIZ ===== */
+function renderQ(){
+  answered=false; const q=curQ[curIdx], n=curQ.length;
+  $('progFill').style.width=(curIdx/n*100)+'%';
+  $('qCounter').textContent='Frage '+(curIdx+1)+' / '+n;
+  $('qScore').textContent='✓ '+sesRight;
+  $('qCat').textContent=q.cat; $('qText').textContent=q.text;
+  $('starBtn').textContent = stats.marked.includes(q.id)?'⭐':'☆';
+  $('expBox').className='expbox'; $('nBtn').className='nbtn';
+  const ex = curMode==='exam';
+  $('skipBtn').style.display='none'; $('examNav').style.display = ex?'block':'none';
+  if(ex){ $('flagBtn').textContent = examFlag[curIdx]?'🚩 Markiert':'🏳 Markieren'; $('prevBtn').disabled = curIdx===0; $('nextExBtn').textContent = curIdx===n-1?'Zur Übersicht ▦':'Weiter →'; }
+  const list=$('answers'); list.innerHTML='';
+  q.sopts.forEach((opt,i)=>{
+    const b=document.createElement('button'); b.className='abtn';
+    b.innerHTML=`<span class="aletter">${L[i]}</span><span>${opt}</span>`;
+    if(ex && examAns[curIdx]===i) b.classList.add('sel');
+    b.onclick=()=>selectA(i); list.appendChild(b);
+  });
+}
+function toggleStar(){
+  const q=curQ[curIdx]; if(!q) return;
+  const i=stats.marked.indexOf(q.id);
+  if(i>=0) stats.marked.splice(i,1); else stats.marked.push(q.id);
+  saveStats(); $('starBtn').textContent=i>=0?'☆':'⭐'; toast(i>=0?'Markierung entfernt':'Frage gemerkt ⭐');
+}
+function recordCat(q,ok){ const s=stats.cat[q.cat]||(stats.cat[q.cat]={r:0,t:0}); s.t++; if(ok) s.r++; }
+function selectA(chosen){
+  if(curMode==='exam'){ examAns[curIdx]=chosen; document.querySelectorAll('.abtn').forEach((b,i)=>b.classList.toggle('sel',i===chosen)); return; }
+  if(answered) return; answered=true;
+  const q=curQ[curIdx], ok=chosen===q.correct;
+  document.querySelectorAll('.abtn').forEach((b,i)=>{ b.disabled=true; if(i===q.correct) b.classList.add('correct'); else if(i===chosen) b.classList.add('wrong'); });
+  if(ok) sesRight++; else sesWrong++;
+  sesLog.push({q,chosen,ok});
+  stats.total++; recordCat(q,ok);
+  if(ok){ stats.correct++; stats.wrongIds=stats.wrongIds.filter(id=>id!==q.id); }
+  else { stats.wrong++; if(!stats.wrongIds.includes(q.id)) stats.wrongIds.push(q.id); }
+  saveStats(); $('qScore').textContent='✓ '+sesRight;
+  if(curMode!=='exam'){
+    let html=(ok?'✅ Richtig! ':'❌ Falsch. ')+q.exp;
+    const d=diagFor(q);
+    if(d) html+=`<details class="dg"><summary>🖼 Merkbild: ${DG[d].title}</summary>${DG[d].svg}</details>`;
+    if(!ok){ const h=hbGetHint(q.cat); html+=`<div class="hb-hint">🎧 Hörbuch-Tipp: <strong>${h.chLabel}</strong> → „${h.eTitle}“ <button class="hb-hint-btn" onclick="hbGoTo('${h.chId}',${h.eIdx})">Anhören →</button></div>`; }
+    $('expBox').innerHTML=html; $('expBox').className='expbox show';
+  }
+  $('skipBtn').style.display='none';
+  const nb=$('nBtn'); nb.className='nbtn show'; nb.textContent=curIdx+1<curQ.length?'Nächste Frage →':'Ergebnis anzeigen →';
+}
+function examGo(d){ const n=curQ.length; const t=curIdx+d; if(t>=n){ examGrid(); return; } if(t<0) return; curIdx=t; renderQ(); }
+function examFlagToggle(){ examFlag[curIdx]=!examFlag[curIdx]; $('flagBtn').textContent=examFlag[curIdx]?'🚩 Markiert':'🏳 Markieren'; }
+function examGrid(){
+  const n=curQ.length, ans=examAns.filter(x=>x>=0).length, fl=examFlag.filter(Boolean).length;
+  $('gridInfo').innerHTML=`<strong>${ans}</strong> von ${n} beantwortet · <strong>${n-ans}</strong> offen · <strong>${fl}</strong> markiert`;
+  $('gridBox').innerHTML=curQ.map((q,i)=>`<button class="gcell ${examAns[i]>=0?'done':''} ${examFlag[i]?'flag':''}" onclick="examJump(${i})">${i+1}${examFlag[i]?'<i>🚩</i>':''}</button>`).join('');
+  $('gridTimer').textContent=$('timerDisplay').textContent;
+  showScreen('gridScreen');
+}
+function examJump(i){ curIdx=i; showScreen('quizScreen'); renderQ(); }
+function examFinishAsk(){
+  const open=examAns.filter(x=>x<0).length;
+  if(open && !confirm(open+' Frage(n) noch unbeantwortet – trotzdem abgeben?')) return;
+  if(!open && !confirm('Prüfung jetzt abgeben?')) return;
+  examFinish();
+}
+function examFinish(){
+  stopTimer(); sesLog=[]; sesRight=0; sesWrong=0;
+  curQ.forEach((q,i)=>{
+    const c=examAns[i];
+    if(c<0){ sesLog.push({q,chosen:-1,ok:false,skipped:true}); return; }
+    const ok=c===q.correct; sesLog.push({q,chosen:c,ok});
+    if(ok){ sesRight++; stats.correct++; stats.wrongIds=stats.wrongIds.filter(id=>id!==q.id); }
+    else { sesWrong++; stats.wrong++; if(!stats.wrongIds.includes(q.id)) stats.wrongIds.push(q.id); }
+    stats.total++; recordCat(q,ok);
+  });
+  saveStats(); showResult();
+}
+function skipQ(){ sesLog.push({q:curQ[curIdx],chosen:-1,ok:false,skipped:true}); nextQ(); }
+function nextQ(){ curIdx++; if(curIdx>=curQ.length) showResult(); else renderQ(); }
+
+/* ===== KARTEIKARTEN ===== */
+function renderCard(){
+  const q=curQ[curIdx], n=curQ.length; fcShown=false;
+  $('cProg').style.width=(curIdx/n*100)+'%'; $('cCounter').textContent='Karte '+(curIdx+1)+' / '+n;
+  $('cCat').textContent=q.cat; $('cText').textContent=q.text;
+  $('cBack').style.display='none'; $('cTap').style.display='block'; $('cBtns').style.display='none';
+  $('cStar').textContent=stats.marked.includes(q.id)?'⭐':'☆';
+}
+function flipCard(){
+  if(fcShown) return; fcShown=true; const q=curQ[curIdx], d=diagFor(q);
+  $('cBack').innerHTML='<div class="cans">✔ '+q.opts[q.ans]+'</div>'+q.exp+(d?`<details class="dg" open><summary>🖼 ${DG[d].title}</summary>${DG[d].svg}</details>`:'');
+  $('cBack').style.display='block'; $('cTap').style.display='none'; $('cBtns').style.display='flex';
+}
+function cardStar(){ const q=curQ[curIdx], i=stats.marked.indexOf(q.id); if(i>=0)stats.marked.splice(i,1); else stats.marked.push(q.id); saveStats(); $('cStar').textContent=i>=0?'☆':'⭐'; }
+function cardRate(ok){
+  const q=curQ[curIdx]; stats.total++; recordCat(q,ok); sesLog.push({q,chosen:ok?q.correct:-2,ok});
+  if(ok){ stats.correct++; sesRight++; stats.wrongIds=stats.wrongIds.filter(id=>id!==q.id); }
+  else { stats.wrong++; sesWrong++; if(!stats.wrongIds.includes(q.id)) stats.wrongIds.push(q.id); }
+  saveStats(); nextQ_card();
+}
+function nextQ_card(){ curIdx++; if(curIdx>=curQ.length) showResult(); else renderCard(); }
+
+/* ===== ERGEBNIS ===== */
+function showResult(){
+  stopTimer();
+  const total=curQ.length, pct=total?Math.round(sesRight/total*100):0;
+  const el=Math.round((Date.now()-examStart)/1000);
+  $('rPct').textContent=pct+'%'; $('rRight').textContent=sesRight; $('rWrong').textContent=sesLog.filter(l=>!l.ok).length;
+  $('rTotal').textContent=total; $('rTime').textContent=Math.floor(el/60)+'m '+(el%60)+'s';
+  const circle=$('rCircle'), pe=$('rPct'); let verdict, sub, col;
+  if(curMode==='exam'){
+    const pass=pct>=PASS_PCT; col=pass?'var(--green)':'var(--red)';
+    verdict=pass?'Bestanden! 🎉':'Nicht bestanden'; sub=pct+'% – Grenze '+PASS_PCT+'% '+(pass?'erreicht.':'nicht erreicht. Weiterlernen!');
+    stats.examHistory.push({date:new Date().toLocaleDateString('de'),pct,right:sesRight,total}); if(stats.examHistory.length>10) stats.examHistory.shift();
+    if(pct>stats.best) stats.best=pct;
+    saveStats(); if(pass) confetti();
+  } else {
+    col=pct>=75?'var(--green)':pct>=55?'var(--yellow)':'var(--red)';
+    verdict=pct>=75?'Sehr gut! 💪':pct>=55?'Gut!':'Weiterlernen'; sub=pct+'% richtig.'+(pct<75?' Schwächen aufarbeiten!':'');
+    if(pct>=75 && total>=10) confetti();
+  }
+  circle.style.borderColor=col; pe.style.color=col;
+  $('rVerdict').textContent=verdict; $('rSub').textContent=sub;
+  buildCatBreakdown();
+  const bad=sesLog.filter(l=>!l.ok).length;
+  const rb=$('reviewBtn'); rb.style.display=bad?'block':'none'; rb.textContent='🔍 Fehler ansehen ('+bad+')';
+  const hist=$('histBox');
+  if(stats.examHistory.length>1){
+    hist.style.display='block';
+    hist.innerHTML='<h4>Letzte Prüfungssimulationen</h4><div class="hist">'+stats.examHistory.map(h=>`<div class="hbar" title="${h.date}"><div style="height:${h.pct}%;background:${h.pct>=PASS_PCT?'var(--green)':'var(--red)'}"></div><span>${h.pct}</span></div>`).join('')+'</div>';
+  } else hist.style.display='none';
+  showScreen('resultScreen');
+}
+function buildCatBreakdown(){
+  const m={}; curQ.forEach(q=>{ (m[q.cat]=m[q.cat]||{r:0,t:0}).t++; });
+  sesLog.forEach(l=>{ if(l.ok) m[l.q.cat].r++; });
+  const rows=Object.entries(m).sort((a,b)=>a[1].r/a[1].t-b[1].r/b[1].t).map(([c,s])=>{
+    const p=Math.round(s.r/s.t*100), col=p>=75?'var(--green)':p>=55?'var(--yellow)':'var(--red)';
+    return `<div class="cbrow"><div style="flex:1"><div class="cbname">${c}</div><div class="minibar"><div style="width:${p}%;background:${col}"></div></div></div><span class="cbscore" style="color:${col}">${s.r}/${s.t}</span></div>`;
+  }).join('');
+  $('catBreakdown').innerHTML='<h4>Ergebnis nach Thema (schwächste zuerst)</h4>'+rows;
+}
+function openReview(){
+  const done=new Set(sesLog.map(l=>l.q.id));
+  const items=sesLog.filter(l=>!l.ok);
+  $('revCount').textContent=items.length+' Frage'+(items.length===1?'':'n')+' zum Wiederholen';
+  $('revList').innerHTML=items.map(({q,chosen,skipped})=>{
+    const d=diagFor(q), your=chosen>=0?`<div class="rv-no">✗ Deine Antwort: ${q.sopts[chosen]}</div>`:`<div class="rv-no">${skipped?'– nicht beantwortet':'✗ nicht gewusst'}</div>`;
+    return `<div class="rv"><div class="qcat">${q.cat}</div><div class="rv-q">${q.text}</div>${your}<div class="rv-ok">✔ Richtig: ${q.sopts[q.correct]}</div><div class="expbox show" style="margin:8px 0 0">${q.exp}</div>${d?`<details class="dg"><summary>🖼 ${DG[d].title}</summary>${DG[d].svg}</details>`:''}</div>`;
+  }).join('') || '<div class="rsub">Keine Fehler 🎉</div>';
+  showScreen('reviewScreen');
+}
+
+/* ===== MERKBILDER ===== */
+function openGallery(){
+  $('galList').innerHTML=Object.values(DG).map(d=>`<div class="card"><div class="card-label">${d.title}</div>${d.svg}</div>`).join('');
+  showScreen('galleryScreen');
+}
+
+/* ===== CONFETTI ===== */
+function confetti(){
+  const c=$('confetti'), x=c.getContext('2d'); c.width=innerWidth; c.height=innerHeight; c.style.display='block';
+  const cols=['#00d4ff','#ff6b35','#00e676','#ffd600','#ff3d5a'];
+  const ps=Array.from({length:120},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*0.5,vx:(Math.random()-.5)*3,vy:2+Math.random()*4,s:4+Math.random()*6,c:cols[Math.random()*5|0],r:Math.random()*6}));
+  let f=0;(function tick(){ x.clearRect(0,0,c.width,c.height);
+    ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.r+=.15;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);x.restore();});
+    if(++f<160) requestAnimationFrame(tick); else {x.clearRect(0,0,c.width,c.height);c.style.display='none';} })();
+}
+
+/* ===== SYNC ===== */
+function resetStats(){ stats=defStats(); saveStats(); updateHome(); toast('Statistik zurückgesetzt'); }
+function exportProgress(){
+  const data=btoa(unescape(encodeURIComponent(JSON.stringify(stats))));
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([data],{type:'text/plain'}));
+  a.download='itil4_fortschritt_'+today()+'.txt'; a.click(); toast('Fortschritt exportiert!');
+}
+function toggleImport(){ const a=$('importArea'); a.style.display=a.style.display==='block'?'none':'block'; }
+function importProgress(){
+  const raw=$('importText').value.trim(); if(!raw){toast('Bitte Code einfügen!');return;}
+  try{ const d=JSON.parse(decodeURIComponent(escape(atob(raw))));
+    if(typeof d.total==='number'){ stats=Object.assign(defStats(),d); saveStats(); updateHome(); $('importArea').style.display='none'; $('importText').value=''; toast('Fortschritt importiert!'); }
+    else toast('Ungültige Datei!');
+  }catch(e){ toast('Fehler beim Importieren!'); }
+}
+
+/* ===== HÖRBUCH ===== */
+let hbCur=0, hbEntry=0, hbPlaying=false, hbSents=[], hbSIdx=0, hbVoices=[];
+const synth = window.speechSynthesis;
+function hbLoadVoices(){
+  if(!synth) return; hbVoices=synth.getVoices(); const sel=$('hbVoice'); sel.innerHTML='';
+  const de=hbVoices.filter(v=>v.lang.startsWith('de')), pool=de.length?de:hbVoices;
+  pool.forEach((v,i)=>{ const o=document.createElement('option'); o.value=i; o.textContent=v.name+(v.localService?' ✓':''); sel.appendChild(o); });
+}
+if(synth) synth.onvoiceschanged=hbLoadVoices;
+function hbOpen(){ stopTimer(); showScreen('hoerbuchScreen'); setTimeout(hbLoadVoices,200); hbTabs(); hbRender(); }
+function hbGoTo(chId,i){ stopTimer(); hbCur=Math.max(0,hbChapters.findIndex(c=>c.id===chId)); hbEntry=i||0; hbOpen(); }
+function hbTabs(){
+  const c=$('hbTabs'); c.innerHTML='';
+  hbChapters.forEach((ch,i)=>{ const b=document.createElement('button'); b.className='hb-tab'+(i===hbCur?' active':'')+(ch.weak?' weak':''); b.textContent=ch.label;
+    b.onclick=()=>{hbStop();hbCur=i;hbEntry=0;hbTabs();hbRender();}; c.appendChild(b); });
+}
+function hbRender(){
+  const ch=hbChapters[hbCur], c=$('hbEntries'); c.innerHTML=''; $('hbCnt').textContent=(hbEntry+1)+' / '+ch.entries.length;
+  ch.entries.forEach((e,i)=>{ const d=document.createElement('div'); d.className='hb-entry'+(i===hbEntry?' cur':'');
+    d.innerHTML=`<div class="hb-emeta">${ch.label} · ${i+1}/${ch.entries.length}${ch.weak?'<span class="hb-wbadge">Prüfungstipp</span>':''}</div><div class="hb-etitle">${e.t}</div><div class="hb-ebody">${e.s.replace(/\|+/g,' ').replace(/\s+/g,' ')}</div><button class="hb-one" onclick="hbPlayOne(${i})">▶ Nur diesen Abschnitt</button>`;
+    d.querySelector('.hb-etitle').onclick=()=>{hbStop();hbEntry=i;hbRender();}; c.appendChild(d); });
+}
+const hbSplit = raw => raw.split('|').map(s=>s.trim()).filter(Boolean);
+function hbSpk(text,done){
+  if(!synth){ done(); return; } synth.cancel();
+  const u=new SpeechSynthesisUtterance(text); u.lang='de-DE';
+  u.rate=parseFloat($('hbSpeed').value); u.pitch=parseFloat($('hbPitch').value); u.volume=parseFloat($('hbVol').value);
+  const de=hbVoices.filter(v=>v.lang.startsWith('de')), pool=de.length?de:hbVoices, v=pool[parseInt($('hbVoice').value)||0]; if(v) u.voice=v;
+  u.onend=done; u.onerror=done; synth.speak(u);
+}
+function hbSeq(){
+  const ch=hbChapters[hbCur];
+  if(!hbPlaying) return;
+  if(hbSIdx>=hbSents.length){
+    if(hbEntry<ch.entries.length-1){ hbEntry++; hbRender(); hbSents=hbSplit(ch.entries[hbEntry].s); hbSIdx=0; $('hbNow').textContent='Läuft: '+ch.entries[hbEntry].t; setTimeout(hbSeq,700); }
+    else { hbPlaying=false; hbBtn(); $('hbNow').textContent='Kapitel beendet ✓'; $('hbPf').style.width='100%'; }
+    return;
+  }
+  $('hbPf').style.width=Math.round(hbSIdx/hbSents.length*100)+'%';
+  const seg=hbSents[hbSIdx]; hbSpk(seg,()=>{ hbSIdx++; setTimeout(hbSeq,/[.!?:]$/.test(seg)?220:80); });
+}
+function hbToggle(){
+  if(hbPlaying){ hbPlaying=false; synth&&synth.cancel(); hbBtn(); $('hbNow').textContent='Pausiert'; return; }
+  hbPlaying=true; hbBtn(); const e=hbChapters[hbCur].entries[hbEntry]; hbSents=hbSplit(e.s); hbSIdx=0; $('hbNow').textContent='Läuft: '+e.t; hbSeq();
+}
+function hbPlayOne(i){
+  hbStop(); hbEntry=i; hbRender(); const e=hbChapters[hbCur].entries[i]; hbPlaying=true; hbBtn();
+  const s=hbSplit(e.s); let k=0; $('hbNow').textContent='Läuft: '+e.t;
+  (function nx(){ if(!hbPlaying||k>=s.length){ hbPlaying=false; hbBtn(); $('hbNow').textContent='Fertig: '+e.t+' ✓'; $('hbPf').style.width='100%'; return; }
+    $('hbPf').style.width=Math.round(k/s.length*100)+'%'; const seg=s[k]; hbSpk(seg,()=>{k++;setTimeout(nx,/[.!?:]$/.test(seg)?220:80);}); })();
+}
+function hbStop(){ hbPlaying=false; synth&&synth.cancel(); hbBtn(); }
+function hbBtn(){ $('hbPlayBtn').textContent=hbPlaying?'⏸ Pause':'▶ Abspielen'; }
+function hbNext(){ if(hbEntry<hbChapters[hbCur].entries.length-1){hbEntry++;hbStop();hbRender();} }
+function hbPrev(){ if(hbEntry>0){hbEntry--;hbStop();hbRender();} }
+function hbRestart(){ if(hbPlaying){ hbStop(); setTimeout(hbToggle,100); } }
+
+/* ===== INIT ===== */
+$('homeBtn').onclick=()=>{ stopTimer(); hbStop(); showScreen('homeScreen'); };
+$('syncBtn').onclick=()=>{ showScreen('homeScreen'); setTimeout(()=>document.querySelector('.sync-card').scrollIntoView({behavior:'smooth'}),100); };
+$('hoerbuchBtn').onclick=hbOpen;
+$('themeBtn').onclick=toggleTheme;
+document.querySelectorAll('.nQ').forEach(e=>e.textContent=questions.length);
+updateHome();
+</script></body></html>
